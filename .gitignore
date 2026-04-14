@@ -1,0 +1,21 @@
+# Build results
+Debug/
+Release/
+x64/
+*.obj
+*.pdb
+*.exe
+*.ilk
+*.log
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# C++
+*.o
+*.out
+*.a
+*.lib
+*.dll

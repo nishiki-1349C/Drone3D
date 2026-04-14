@@ -1,0 +1,10 @@
+drawShadowOn()による影描画のパフォーマンス向上
+現状計算量がオブジェクト数nに対して n^2 に比例している。
+
+public / private設定
+
+衝突用の頂点・ベクトルについて
+　現状colVerticesが使われていない。軽量になるメリットはあるものの、精度やRenderとの合致に難あり
+　
+【優先度Low】
+main()->GLFWWrap::createWindow()  タイトル変更
