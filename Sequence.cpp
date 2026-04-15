@@ -105,7 +105,6 @@ void Sequence::checkAllCollision() {
 				B->onCollision(A);			//Obj‘¤‚ÌÕ“Ëˆ—‚ðŽÀs
 			}
 		}
-
 	}
 }
 

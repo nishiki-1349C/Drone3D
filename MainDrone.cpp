@@ -5,7 +5,7 @@ using namespace std;
 
 //Ã“IÀ‘Ì’è‹`
 MainDrone* MainDrone::mainDrone = nullptr;
-vec3 MainDrone::initPos = vec3(0, 5, 0);
+vec3 MainDrone::initPos = vec3(0, 40, 0);
 vec3 MainDrone::forward = vec3(0, 0, 1);
 vec3 MainDrone::right = vec3(1, 0, 0);
 

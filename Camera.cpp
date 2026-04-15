@@ -11,7 +11,7 @@ using namespace std;
 
 // 定数定義
 const float Camera::pitchRange = 65.0f;
-const vec3 Camera::initCamPos = MainDrone::initPos + vec3(0, 10, 0);
+const vec3 Camera::initPos = MainDrone::initPos + vec3(0, 10, 0);
 
 
 // 静的メンバの実体定義
@@ -22,9 +22,11 @@ float Camera::camZoomSpeed = 0.1f;
 //vec3 color = vec3(0);
 
 Camera::Camera()
-	:Object(ShapeType::box, ObjectTag::cam, ObjectType::cam, color, vec3(1), Camera::initCamPos)
+//:Object(ShapeType::box, ObjectTag::cam, ObjectType::cam, color, vec3(1), Camera::initCamPos)
+	:size(vec3(1)),
+	camPos(Camera::initPos)
 	, target(&MainDrone::mainDrone->currentPos)
-	, forward(normalize(*target - currentPos))
+	, forward(normalize(*target - camPos))
 	, viewWidth(GLFWWrap::winWidth)
 	, viewHeight(GLFWWrap::winHeight)
 	, viewAngle(45.0f)
@@ -35,10 +37,10 @@ Camera::Camera()
 	// シングルトン登録
 	cam = this;
 
-	if ( target != nullptr ) { forward = normalize(*target - currentPos); }
+	if ( target != nullptr ) { forward = normalize(*target - camPos); }
 	else { forward = vec3(0, 0, 1); }
 
-	view = lookAtLH(currentPos, *target, vec3(0, 1, 0));
+	view = lookAtLH(camPos, *target, vec3(0, 1, 0));
 
 	// プロジェクション行列（固定）
 	// 第三引数：近クリップ面距離　第四引数：遠クリップ面距離 = 描写遠近の限界範囲
@@ -48,7 +50,7 @@ Camera::Camera()
 		1000.0f);
 
 	// コライダー頂点の設定
-	colVertices = CalcVertices::calcVertices_box(size);
+	//colVertices = CalcVertices::calcVertices_box(size);
 
 	//camLengthの最小値
 	auto size = MainDrone::mainDrone->size;
@@ -63,25 +65,30 @@ Camera::Camera()
 }
 
 void Camera::update() {
-	Object::update();
-
-	forward = normalize(*target - currentPos);
+	forward = normalize(*target - camPos);
 	updateYawPitch();
 	resolveCamCollision();
 	moveCamPos();
+	updateAABBox();
 	calcViewMatrix();
+}
 
-
+void Camera::updateAABBox() {
+	AABBmax = camPos + size * 0.5f;
+	AABBmin = camPos - size * 0.5f;
 }
 
 void Camera::updateYawPitch() {
-	yaw += GLFWWrap::deltaMouseXPos * camPosSpeed;
-	pitch += GLFWWrap::deltaMouseYPos * camPosSpeed;
+	/*yaw += GLFWWrap::deltaMouseXPos * camPosSpeed;
+	pitch += GLFWWrap::deltaMouseYPos * camPosSpeed;*/
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_RIGHT) == GLFW_PRESS ) { yaw += camPosSpeed * 2; }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_LEFT) == GLFW_PRESS ) { yaw -= camPosSpeed * 2; }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_UP) == GLFW_PRESS ) { pitch += camPosSpeed; }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_DOWN) == GLFW_PRESS ) { pitch -= camPosSpeed; }
 
 	if ( yaw >= 360 ) { yaw -= 360; }
 	else if ( yaw < 0 ) { yaw += 360; }
-	pitch = clamp(pitch, -pitchRange, -5.0f);
-	cout << pitch << endl;
+	pitch = clamp(pitch, -pitchRange, pitchRange);
 }
 
 void Camera::moveCamPos() {
@@ -94,7 +101,7 @@ void Camera::moveCamPos() {
 	float y = sin(pitchRad);
 	float z = cos(yawRad) * cos(pitchRad);
 	vec3 temp = camLength * vec3(x, y, z);
-	currentPos = MainDrone::mainDrone->currentPos - temp;
+	camPos = MainDrone::mainDrone->currentPos - temp;
 }
 
 //カメラの衝突 // 非衝突が続いたフレーム数
@@ -105,7 +112,7 @@ void Camera::resolveCamCollision() {
 
 	// 衝突判定
 	for ( Object* env : Object::allEnvironments ) {
-		if ( Sequence::checkCollision(this, env) ) {
+		if ( Camera::checkCollision(env) ) {
 			isColliding = true;
 			break;
 		}
@@ -129,9 +136,18 @@ void Camera::resolveCamCollision() {
 	}
 }
 
+bool Camera::checkCollision(Object* other) {
+	if ( AABBmax.x > other->getAABBoxMin().x && AABBmin.x <= other->getAABBoxMax().x &&
+		AABBmax.y > other->getAABBoxMin().y && AABBmin.y < other->getAABBoxMax().y &&
+		AABBmax.z > other->getAABBoxMin().z && AABBmin.z < other->getAABBoxMax().z ) {
+		return true;
+	}
+	return false;
+}
+
 
 /*void Camera::onCollision(Object* other) {
 	cout << "camera collision checked" << endl;
 }*/
 
-void Camera::calcViewMatrix() { view = lookAtLH(currentPos, MainDrone::mainDrone->currentPos, vec3(0, 1, 0)); }
+void Camera::calcViewMatrix() { view = lookAtLH(camPos, MainDrone::mainDrone->currentPos, vec3(0, 1, 0)); }
