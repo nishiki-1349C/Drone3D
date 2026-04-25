@@ -90,7 +90,7 @@ void Sequence::checkAllCollision() {
 		auto A = allDnmcs [i];
 		for ( size_t j = 0; j < allDnmcs.size(); ++j ) {
 			auto B = allDnmcs [j];
-			if ( i != j ) continue;//自分自身との接触は無視
+			if ( i == j ) continue;//自分自身との接触は無視
 			if ( checkCollision(A, B) ) {	//接触していれば
 				A->onCollision(B);			//dynamic側の衝突処理を実行
 				B->onCollision(A);			//Obj側の衝突処理を実行
@@ -99,7 +99,7 @@ void Sequence::checkAllCollision() {
 
 		for ( size_t j = 0; j < allEnvs.size(); ++j ) {
 			auto B = allEnvs [j];
-			if ( i != j ) continue;//自分自身との接触は無視
+			if ( i == j ) continue;//自分自身との接触は無視
 			if ( checkCollision(A, B) ) {	//接触していれば
 				A->onCollision(B);			//dynamic側の衝突処理を実行
 				B->onCollision(A);			//Obj側の衝突処理を実行
