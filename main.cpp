@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 
+#include "Blaster.h"
 #include "MainDrone.h"
 #include "GLFWWrap.h"
 #include "Renderer3D.h"
@@ -33,10 +34,15 @@ int main() {
 			Sequence::update();				// 全オブジェクトの物理更新
 			Sequence::checkAllCollision();	// AABB更新と衝突判定
 
+
+			Blaster::shot();
+			Blaster::checkDeadBullets();
+
+			//カメラ更新
+			Camera::cam->update();
 		}
 
-		//カメラ更新
-		Camera::cam->update();
+
 
 
 		//--- 描画セクション ---
@@ -90,6 +96,7 @@ int main() {
 
 		// 他の描画に影響しないよう、最後に太さを 1.0f に戻しておく
 		glLineWidth(1.0f);
+
 
 		// デス時処理
 		FadeInOut::fadeInOut(black, TimeMgr::getDeltaTime(), 2.0f);

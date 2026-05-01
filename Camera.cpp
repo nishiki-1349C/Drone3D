@@ -30,7 +30,7 @@ Camera::Camera()
 	, viewWidth(GLFWWrap::winWidth)
 	, viewHeight(GLFWWrap::winHeight)
 	, viewAngle(45.0f)
-	, camPosSpeed(0.011f)
+	, camPosSpeed(30.0f / getFPS())
 	, yaw(0.0f)
 	, pitch(0.0f)
 	, camLength(camLengthMax) {

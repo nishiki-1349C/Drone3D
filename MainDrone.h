@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "Bullet.h"
+//#include "Bullet.h"
 #include "Camera.h"
 #include "FadeInOut.h"
 #include "GLFWWrap.h"

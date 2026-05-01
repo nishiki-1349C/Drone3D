@@ -19,7 +19,8 @@ void Sequence::init() {
 
 	//==== カーソル設定 ====
 	glfwSetCursorPosCallback(GLFWWrap::window, GLFWWrap::senseMouseMove);
-	glfwSetInputMode(GLFWWrap::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(GLFWWrap::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
+	glfwSetInputMode(GLFWWrap::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	if ( !gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) ) {
 		std::cout << "Failed to initialize GLAD\n";
@@ -99,7 +100,6 @@ void Sequence::checkAllCollision() {
 
 		for ( size_t j = 0; j < allEnvs.size(); ++j ) {
 			auto B = allEnvs [j];
-			if ( i == j ) continue;//自分自身との接触は無視
 			if ( checkCollision(A, B) ) {	//接触していれば
 				A->onCollision(B);			//dynamic側の衝突処理を実行
 				B->onCollision(A);			//Obj側の衝突処理を実行

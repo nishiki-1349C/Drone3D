@@ -15,6 +15,7 @@ public:
 
 	static void initAllRenderers();
 	static void drawAllRenderers();
+	void init();
 
 	static void drawAllShadowOn();
 	void drawShadowOn(const Object* receiver);// 影をreceiverオブジェクトの上面に投影する
@@ -24,9 +25,9 @@ public:
 
 	static std::vector<Renderer3D*> allRenderers;
 
-private:
+protected:
 	// obj.visVertices を GPU に転送する（init前にvisVerticesを構築しておくこと）
-	void init();
+
 	void draw();
 	glm::mat4 calculateModelMatrix() const;
 	bool isInsideReceiver(const glm::vec3& pos, const Object* receiver) const;

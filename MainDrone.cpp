@@ -33,7 +33,6 @@ void MainDrone::update() {
 	updateAABBox();
 	move();
 	//calcDroneVelocity();
-	Blaster::shot();
 
 
 

@@ -10,21 +10,41 @@ vec3 Blaster::bulletSpawnPos = vec3(0.0f);
 float Blaster::shotTimer = 0.0f;
 float Blaster::shotInterval = 1.0f; // 1秒ごとに発射
 
+void Blaster::init() {}
+
 void Blaster::shot() {
-	shotTimer += TimeMgr::getDeltaTime();
+
+	//タイマーを進めてインターバルを上回ったら発射
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_SPACE) == GLFW_PRESS ) {
+		shotTimer += TimeMgr::getFixedDelta();
+	}
 	if ( shotTimer >= shotInterval ) {
 		shotTimer -= shotInterval;
+
 		vec3 forward = Camera::cam->forward;
 		bulletSpawnPos = MainDrone::mainDrone->currentPos + forward * 3.0f;
 		Bullet* bullet = new Bullet();
 		bullets.push_back(bullet);
 	}
+
+	//cout << bullets.size() << endl;
 }
 
+void Blaster::checkDeadBullets() {
+	for ( auto it = bullets.begin(); it != bullets.end(); ) {
+		if ( (*it)->isDead ) {
+			delete* it;
+			it = bullets.erase(it); // eraseの戻り値で次のイテレータに進む
+		}
+		else {
+			++it;
+		}
+	}
+}/*
 void Blaster::eraseBullet(Bullet* bullet) {
 	auto it = std::find(bullets.begin(), bullets.end(), bullet);
 	if ( it != bullets.end() ) {
 		delete* it;
 		bullets.erase(it);
 	}
-}
+}*/
