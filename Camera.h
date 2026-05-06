@@ -17,6 +17,7 @@ public:
 	glm::mat4 view;
 	glm::mat4 proj;
 	glm::vec3* target;//カメラが向く方向
+	glm::vec3 targetOffset = glm::vec3(0, 3, 0);
 	glm::vec3 forward;//カメラの視点方向 target- camPos の正規
 	glm::vec3 camPos;
 
@@ -27,7 +28,6 @@ public:
 private:
 	void updateAABBox();
 	void resolveCamCollision();
-	//void onCollision(Object* other) override final;
 	void updateYawPitch();//マウスの動きから方向を示す変数を更新
 	void moveCamPos();
 	void calcViewMatrix();

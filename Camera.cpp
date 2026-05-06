@@ -65,7 +65,7 @@ Camera::Camera()
 }
 
 void Camera::update() {
-	forward = normalize(*target - camPos);
+	forward = normalize(*target + targetOffset - camPos);
 	updateYawPitch();
 	resolveCamCollision();
 	moveCamPos();
@@ -150,4 +150,4 @@ bool Camera::checkCollision(Object* other) {
 	cout << "camera collision checked" << endl;
 }*/
 
-void Camera::calcViewMatrix() { view = lookAtLH(camPos, MainDrone::mainDrone->currentPos, vec3(0, 1, 0)); }
+void Camera::calcViewMatrix() { view = lookAtLH(camPos, MainDrone::mainDrone->currentPos + targetOffset, vec3(0, 1, 0)); }
