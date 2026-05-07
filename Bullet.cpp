@@ -35,5 +35,5 @@ void Bullet::update() {
 
 void Bullet::onCollision(Object* other) {
 	// 衝突したオブジェクトが敵であれば、何らかのダメージ処理を行う
-	//if ( other->getObjTag() != ObjectTag::mainDrone ) { isDead = true; }
+	if ( other->getObjTag() != ObjectTag::mainDrone ) { isDead = true; }
 }
