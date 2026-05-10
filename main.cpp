@@ -35,11 +35,11 @@ int main() {
 			Sequence::checkAllCollision();	// AABB更新と衝突判定
 
 
-			Blaster::shot();
-			Blaster::checkDeadBullets();
+			Blaster::shot();				// 弾の発射
+			Blaster::checkDeadBullets();	//弾の削除
 
-			//カメラ更新
-			Camera::cam->update();
+
+			Camera::cam->update();			//カメラ更新
 		}
 
 

@@ -30,7 +30,7 @@ Camera::Camera()
 	, viewWidth(GLFWWrap::winWidth)
 	, viewHeight(GLFWWrap::winHeight)
 	, viewAngle(45.0f)
-	, camPosSpeed(30.0f / getFPS())
+	, camPosSpeed(30.0f)
 	, yaw(0.0f)
 	, pitch(0.0f)
 	, camLength(camLengthMax) {
@@ -61,7 +61,6 @@ Camera::Camera()
 	//ƒJƒƒ‰‚ªallObjects‚ÉŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©
 	for ( Object* obj : Object::allObjects ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in allObjects"; }
 	for ( Object* obj : Object::allDynamics ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in alldynamics"; }
-
 }
 
 void Camera::update() {
@@ -81,10 +80,10 @@ void Camera::updateAABBox() {
 void Camera::updateYawPitch() {
 	/*yaw += GLFWWrap::deltaMouseXPos * camPosSpeed;
 	pitch += GLFWWrap::deltaMouseYPos * camPosSpeed;*/
-	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_RIGHT) == GLFW_PRESS ) { yaw += camPosSpeed * 2; }
-	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_LEFT) == GLFW_PRESS ) { yaw -= camPosSpeed * 2; }
-	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_UP) == GLFW_PRESS ) { pitch += camPosSpeed; }
-	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_DOWN) == GLFW_PRESS ) { pitch -= camPosSpeed; }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_RIGHT) == GLFW_PRESS ) { yaw += camPosSpeed * 2 * TimeMgr::getFixedDelta(); }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_LEFT) == GLFW_PRESS ) { yaw -= camPosSpeed * 2 * TimeMgr::getFixedDelta(); }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_UP) == GLFW_PRESS ) { pitch += camPosSpeed * TimeMgr::getFixedDelta(); }
+	if ( glfwGetKey(GLFWWrap::window, GLFW_KEY_DOWN) == GLFW_PRESS ) { pitch -= camPosSpeed * TimeMgr::getFixedDelta(); }
 
 	if ( yaw >= 360 ) { yaw -= 360; }
 	else if ( yaw < 0 ) { yaw += 360; }

@@ -38,14 +38,14 @@ private:
 
 
 	bool isOverSpeed;
-	float acceleration = 30.0f / getFPS();
-	float upAcceleration = 2.0f / getFPS();
+	float acceleration = 30.0f;
+	float upAcceleration = 2.0f;
 	float drag = 0.75f;												//êÖïΩñ è„ÇÃå∏ë¨
-	float horizontalSpeedLimit = 30.0f / getFPS();
-	float fallSpeedLimit = 30.0f / getFPS();
-	float mainDroneSpeedMin = 0.1f / getFPS();
-	float crashSpeedThreshold = 15.0f / getFPS();
-	const glm::vec3 gravity = glm::vec3(0, -9.8, 0) / getFPS();
+	float horizontalSpeedLimit = 30.0f;
+	float fallSpeedLimit = 30.0f;
+	float mainDroneSpeedMin = 0.1f;
+	float crashSpeedThreshold = 15.0f;
+	const glm::vec3 gravity = glm::vec3(0, -9.8, 0);
 	float gravityScale;
 };
 

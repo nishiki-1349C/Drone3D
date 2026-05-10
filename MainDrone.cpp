@@ -61,7 +61,7 @@ void MainDrone::move() {
 	droneVelocity.y = glm::clamp(droneVelocity.y, -fallSpeedLimit, 1.5f * fallSpeedLimit);
 
 	// --- à⁄ìÆÇ∆è’ìÀ ---
-	currentPos += droneVelocity;
+	currentPos += droneVelocity * TimeMgr::getFixedDelta();;
 }
 
 
