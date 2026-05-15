@@ -132,6 +132,10 @@
     <ClCompile Include="CalcVector.cpp" />
     <ClCompile Include="CalcVertices.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyMgr.cpp" />
+    <ClCompile Include="Enemy_Mob.cpp" />
+    <ClCompile Include="Enemy_Tower.cpp" />
     <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -154,6 +158,11 @@
     <ClInclude Include="CalcVertices.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyMgr.h" />
+    <ClInclude Include="EnemyData.h" />
+    <ClInclude Include="Enemy_Mob.h" />
+    <ClInclude Include="Enemy_Tower.h" />
     <ClInclude Include="FadeInOut.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="MainDrone.h" />

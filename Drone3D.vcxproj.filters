@@ -19,6 +19,12 @@
     <Filter Include="Definition File">
       <UniqueIdentifier>{2c580fdc-12e8-4518-969b-8275dea9aef1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Enemyヘッダー">
+      <UniqueIdentifier>{23c15cde-64c4-4eff-a008-aa080165c139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemyソース">
+      <UniqueIdentifier>{23cf58a6-456b-4b3c-a3d0-68d3bca208a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +84,18 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\Enemyソース</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyMgr.cpp">
+      <Filter>ソース ファイル\Enemyソース</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy_Mob.cpp">
+      <Filter>ソース ファイル\Enemyソース</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy_Tower.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLFWWrap.h">
@@ -132,6 +150,21 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMgr.h">
+      <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyData.h">
+      <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_Mob.h">
+      <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_Tower.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

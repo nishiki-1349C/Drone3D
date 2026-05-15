@@ -37,7 +37,7 @@ Object::Object(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, 
 	}
 
 	initAABBox();
-	if ( tag != ObjectTag::cam ) { renderer = new Renderer3D(this); }
+	renderer = new Renderer3D(this);
 }
 
 // デストラクタ
