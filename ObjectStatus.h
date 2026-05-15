@@ -4,7 +4,6 @@ enum class ObjectTag {
 	none = 0,
 
 	//プレイヤーサイド
-	cam,
 	mainDrone,
 
 	//敵
@@ -33,6 +32,5 @@ enum class ShapeType {
 enum class ObjectType {
 	dynamic,
 	environment,
-	cam,
 	other
 };

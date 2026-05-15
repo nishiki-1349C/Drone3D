@@ -59,13 +59,14 @@ Camera::Camera()
 	updateAABBox();
 
 	//ƒJƒƒ‰‚ªallObjects‚ÉŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©
-	for ( Object* obj : Object::allObjects ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in allObjects"; }
-	for ( Object* obj : Object::allDynamics ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in alldynamics"; }
+	//for ( Object* obj : Object::allObjects ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in allObjects"; }
+	//for ( Object* obj : Object::allDynamics ) { if ( obj->getObjTag() == ObjectTag::cam )cout << "cam inluded in alldynamics"; }
 }
 
 void Camera::update() {
 	forward = normalize(*target + targetOffset - camPos);
 	updateYawPitch();
+	moveCamPos();
 	resolveCamCollision();
 	moveCamPos();
 	updateAABBox();
