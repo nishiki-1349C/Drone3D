@@ -1,8 +1,14 @@
 #include "EnemyMgr.h"
+#include "MainDrone.h"
 using namespace std;
 using namespace glm;
+// ŽÀ‘Ì’è‹`
+std::vector<Enemy*> EnemyMgr::allEnemies;
+glm::vec3* EnemyMgr::plPos = nullptr;
 
-std::vector<Enemy*> EnemyMgr::allEnemies; // ŽÀ‘Ì’è‹`
+void EnemyMgr::init() {
+	plPos = &MainDrone::mainDrone->currentPos;
+}
 
 void EnemyMgr::spawnEnemy(EnemyType type, glm::vec3 pos) {
 	Enemy* enemy = new Enemy(type, pos);

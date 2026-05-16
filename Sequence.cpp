@@ -1,6 +1,7 @@
 #include "Sequence.h"
 #include "Blaster.h"
 #include "CalcVertices.h"
+#include "EnemyMgr.h"
 #include "FadeInOut.h"
 #include "GLFWWrap.h"
 #include "Object.h"
@@ -32,6 +33,7 @@ void Sequence::init() {
 	GLFWWrap::init();		// 深度　初期設定
 	TimeMgr::init(60.0f);	// 固定FPSの指定
 	FadeInOut::init();		// 暗転の初期化
+	EnemyMgr::init();		// 敵管理の初期化
 }
 
 //各種インスタンス生成

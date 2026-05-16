@@ -13,7 +13,7 @@
 #include "FadeInOut.h"
 #include "TimeMgr.h"
 #include "Sequence.h"
-
+#include "EnemyMgr.h"
 
 int main() {
 	Sequence::init();
@@ -41,9 +41,6 @@ int main() {
 
 			Camera::cam->update();			//カメラ更新
 		}
-
-
-
 
 		//--- 描画セクション ---
 		// オブジェクト描画　　全てのRenderer3Dインスタンスがここで一括描画される
@@ -117,6 +114,7 @@ int main() {
 		glfwSwapBuffers(GLFWWrap::window);
 
 
+		std::cout << EnemyMgr::plPos->x << " " << EnemyMgr::plPos->y << " " << EnemyMgr::plPos->z << std::endl;
 	}
 
 	//===== 7. 終了処理 =====

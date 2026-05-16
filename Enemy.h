@@ -12,9 +12,8 @@ public:
 
 	bool isDead = false;
 protected:
-	static glm::vec3 plPos;
-
 	int state, hp, attack;
 	float speed;
+	float enemyTimer = 0;
 };
 
