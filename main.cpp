@@ -112,9 +112,6 @@ int main() {
 
 		// ダブルバッファ入れ替え
 		glfwSwapBuffers(GLFWWrap::window);
-
-
-		std::cout << EnemyMgr::plPos->x << " " << EnemyMgr::plPos->y << " " << EnemyMgr::plPos->z << std::endl;
 	}
 
 	//===== 7. 終了処理 =====

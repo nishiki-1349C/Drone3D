@@ -28,12 +28,14 @@ void Sequence::init() {
 		return;
 	}
 
+
 	setInstance();			//カメラ・ドローン・その他インスタンス生成
+	EnemyMgr::spawnEnemy(EnemyType::mob, vec3(0, 0, 50));
+
 	initRenderes();			// Objectの描画用頂点生成 初期化
 	GLFWWrap::init();		// 深度　初期設定
 	TimeMgr::init(60.0f);	// 固定FPSの指定
 	FadeInOut::init();		// 暗転の初期化
-	EnemyMgr::init();		// 敵管理の初期化
 }
 
 //各種インスタンス生成
@@ -41,10 +43,11 @@ void Sequence::setInstance() {
 	// 各種コンストラクタ
 	/*shape tag act color size pos */
 	MainDrone::mainDrone = new MainDrone(ShapeType::box, ObjectTag::mainDrone, ObjectType::dynamic, vec3(0.5f, 0.7f, 1.0f), vec3(2, 1, 2), MainDrone::initPos);
+	EnemyMgr::init();
 	Camera::cam = new Camera();
 	StageObject::constructStage();
 
-	Object* sphere = new Object(ShapeType::sphere, ObjectTag::none, ObjectType::environment, vec3(0.0f, 0.2f, 0.7f), vec3(5), vec3(0, 10, 10));
+	//Object* sphere = new Object(ShapeType::sphere, ObjectTag::none, ObjectType::environment, vec3(0.0f, 0.2f, 0.7f), vec3(5), vec3(0, 10, 10));
 }
 
 //
