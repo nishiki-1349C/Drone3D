@@ -10,7 +10,7 @@ public:
 	static void checkDeadEnemy();
 	static void deleteAllEnemies();
 
-	static glm::vec3* plPos;
+	static glm::vec3* dronePos;
 private:
 	static void deleteEnemy(Enemy* enemy);
 
