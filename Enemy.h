@@ -5,7 +5,7 @@
 class Enemy : public Object {
 public:
 	Enemy(EnemyType type, glm::vec3 pos);
-	virtual ~Enemy();
+	//virtual ~Enemy();
 
 	virtual void update() override;
 	virtual void onCollision(Object* other) override;
@@ -13,7 +13,6 @@ public:
 	bool isDead = false;
 protected:
 	int state, hp, attack;
-	float speed;
 	float enemyTimer = 0;
 };
 

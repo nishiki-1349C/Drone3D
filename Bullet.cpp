@@ -14,7 +14,7 @@ Bullet::Bullet()
 
 	// 弾の初期速度を設定（例: 前方に向かって速く飛ぶ）
 	forward = Camera::cam->forward;		// ドローンの前方ベクトルを使用
-	speed = 30.0f;							// 速度の大きさを調整
+	speed = 300.0f;							// 速度の大きさを調整
 	lifeTime = 10.0f;					// 弾の寿命を設定
 
 }

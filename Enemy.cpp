@@ -18,15 +18,14 @@ Enemy::Enemy(EnemyType type, glm::vec3 pos)
 	),
 	state(-1),
 	hp(getEnemyDataTable().at(type).hp),
-	attack(getEnemyDataTable().at(type).attack),
-	speed(getEnemyDataTable().at(type).speed) {}
+	attack(getEnemyDataTable().at(type).attack) {}
 
-Enemy::~Enemy() {}
+//Enemy::~Enemy() {}
 
 
 
 void Enemy::update() {
-	timer += TimeMgr::getFixedDelta();
+	enemyTimer += TimeMgr::getFixedDelta();
 	if ( hp <= 0 ) isDead = true;
 }
 

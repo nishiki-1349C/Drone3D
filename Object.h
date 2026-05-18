@@ -2,6 +2,7 @@
 #include "ObjectStatus.h"
 #include "VisTypes.h"
 #include <glm/glm.hpp>
+#include <iostream>
 #include <vector>
 #include <limits>
 

@@ -34,7 +34,7 @@ void Blaster::checkDeadBullets() {
 	for ( auto it = bullets.begin(); it != bullets.end(); ) {
 		if ( (*it)->isDead ) {
 			delete* it;
-			it = bullets.erase(it); // eraseの戻り値で次のイテレータに進む
+			it = bullets.erase(it);
 		}
 		else {
 			++it;
