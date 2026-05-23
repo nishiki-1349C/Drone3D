@@ -142,6 +142,7 @@
     <ClCompile Include="MainDrone.cpp" />
     <ClCompile Include="myLib.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="Renderer3DComponent.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="MainDrone.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="ObjectStatus.h" />
     <ClInclude Include="Renderer3D.h" />

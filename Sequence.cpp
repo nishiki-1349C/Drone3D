@@ -5,6 +5,7 @@
 #include "FadeInOut.h"
 #include "GLFWWrap.h"
 #include "Object.h"
+#include "Player.h"
 #include "StageObject.h"
 #include "Renderer3D.h"
 #include <string>
@@ -42,10 +43,11 @@ void Sequence::init() {
 void Sequence::setInstance() {
 	// 各種コンストラクタ
 	/*shape tag act color size pos */
-	MainDrone::mainDrone = new MainDrone(ShapeType::box, ObjectTag::mainDrone, ObjectType::dynamic, vec3(0.5f, 0.7f, 1.0f), vec3(2, 1, 2), MainDrone::initPos);
+	MainDrone::mainDrone = new MainDrone(ShapeType::box, ObjectTag::mainDrone, ObjectType::dynamic, vec3(0.5f, 0.7f, 1.0f), vec3(1.5f, 1.5f, 1.5f), MainDrone::initPos);
 	EnemyMgr::init();
 	Camera::cam = new Camera();
 	StageObject::constructStage();
+	new Player(100, 0, 10);  // ← 追加（hp, score, attack は適宜）
 
 	//Object* sphere = new Object(ShapeType::sphere, ObjectTag::none, ObjectType::environment, vec3(0.0f, 0.2f, 0.7f), vec3(5), vec3(0, 10, 10));
 }

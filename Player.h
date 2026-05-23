@@ -10,6 +10,7 @@ public:
 
 	int hp,
 		score,
-		attack;
+		attack,
+		initAttack  = 10;
 private:
 };
