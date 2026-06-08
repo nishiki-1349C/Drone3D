@@ -105,7 +105,7 @@ void MainDrone::onCollision(Object* other) {
 	/*if ( other->getdynamicType() == dynamicType::environment ) {
 		float impactSpeed = glm::length(droneVelocity);
 		if ( impactSpeed > crashSpeedThreshold ) {
-			isGameOver = true;
+			GameMgr::isGameOver = true;
 		}
 	}*/
 }
