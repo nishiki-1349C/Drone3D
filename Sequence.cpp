@@ -1,4 +1,4 @@
-#include "Sequence.h"
+﻿#include "Sequence.h"
 #include "Blaster.h"
 #include "CalcVertices.h"
 #include "EnemyMgr.h"
@@ -12,13 +12,13 @@ using namespace glm;
 using namespace std;
 
 void Sequence::init() {
-	//===== �E�B���h�E�����Ə����� =====
+	//===== ウィンドウ生成 =====
 	if ( GLFWWrap::createWindow(GLFWWrap::winWidth, GLFWWrap::winHeight, "Drone3D", nullptr, nullptr) != 0 ) {
-		std::cout << "�E�B���h�E�����Ɏ��s���܂���\n";
+		std::cout << "ウィンドウ生成に失敗しました" << endl;
 		return;
 	}
 
-	//==== �J�[�\���ݒ� ====
+	//===== マウスカーソル設定 =====
 	glfwSetCursorPosCallback(GLFWWrap::window, GLFWWrap::senseMouseMove);
 	//glfwSetInputMode(GLFWWrap::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
 	glfwSetInputMode(GLFWWrap::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -29,18 +29,18 @@ void Sequence::init() {
 	}
 
 
-	setInstance();			//�J�����E�h���[���E���̑��C���X�^���X����
+	setInstance();			// インスタンス生成
 	EnemyMgr::spawnEnemy(EnemyType::mob, vec3(0, 0, 50));
 
-	initRenderes();			// Object�̕`��p���_���� ������
-	GLFWWrap::init();		// �[�x�@�����ݒ�
-	TimeMgr::init(60.0f);	// �Œ�FPS�̎w��
-	FadeInOut::init();		// �Ó]�̏�����
+	initRenderes();			// Objectの頂点情報を計算
+	GLFWWrap::init();		// ウィンドウの初期化
+	TimeMgr::init(60.0f);	// 固定FPSの設定
+	FadeInOut::init();		// フェードイン・フェードアウトの初期化
 }
 
-//�e��C���X�^���X����
+// インスタンス生成
 void Sequence::setInstance() {
-	// �e��R���X�g���N�^
+	// メインドローンの生成
 	/*shape tag act color size pos */
 	MainDrone::mainDrone = new MainDrone(ShapeType::box, ObjectTag::mainDrone, ObjectType::dynamic, vec3(0.5f, 0.7f, 1.0f), vec3(1.5f, 1.5f, 1.5f), MainDrone::initPos);
 	EnemyMgr::init();
@@ -53,7 +53,6 @@ void Sequence::setInstance() {
 
 //
 void Sequence::initRenderes() {
-	// �`��p���_�̐���
 	for ( Object* obj : Object::allObjects ) {
 		switch ( obj->getShapeType() ) {
 			case ShapeType::box:
@@ -67,48 +66,48 @@ void Sequence::initRenderes() {
 			default: break;
 		}
 	}
-	// �S�����_���[��GPU������ (���_���M�Ȃ�)
+	// すべてのオブジェクトのGPUバッファを初期化
 	Renderer3D::initAllRenderers();
 }
 
 void Sequence::mainLoop() {}
 
-// dynamic�ɂ��đS�ẴI�u�W�F�N�g�ɑ΂��ďՓ˔�����s��
+// dynamicオブジェクト同士の衝突判定
 void Sequence::checkAllCollision() {
 	auto& allDnmcs = Object::allDynamics,
 		allEnvs = Object::allEnvironments;
 
-	//dynamic�ɑ΂��đS�Ă�Objs�Ƃ̐ڐG����
+	//dynamicオブジェクト同士の衝突判定
 	for ( size_t i = 0; i < allDnmcs.size(); ++i ) {
 		/*for ( size_t j = 0; j < allObjs.size(); ++j ) {
-			if ( allDnmcs [i] == allObjs [j] ) { continue; }	//�������g�Ƃ̔���͖���
+			if ( allDnmcs [i] == allObjs [j] ) { continue; }	//同じオブジェクト同士の判定はスキップ
 
 			/*auto* A = allDnmcs [i];
 			auto* B = allObjs [j];
 
-			if ( checkCollision(A, B) ) {	//�ڐG���Ă����
-				allDnmcs [i]->onCollision(allObjs [j]);			//dynamic���̏Փˏ��������s
-				allObjs [j]->onCollision(allDnmcs [i]);			//Obj���̏Փˏ��������s
+			if ( checkCollision(A, B) ) {	//衝突判定
+				allDnmcs [i]->onCollision(allObjs [j]);
+				allObjs [j]->onCollision(allDnmcs [i]);
 
 			}
 
 		}*/
-		//Dynamics�ɑ΂��Ă̏���
+
 		auto A = allDnmcs [i];
 		for ( size_t j = 0; j < allDnmcs.size(); ++j ) {
 			auto B = allDnmcs [j];
-			if ( i == j ) continue;//�������g�Ƃ̐ڐG�͖���
-			if ( checkCollision(A, B) ) {	//�ڐG���Ă����
-				A->onCollision(B);			//dynamic���̏Փˏ��������s
-				B->onCollision(A);			//Obj���̏Փˏ��������s
+			if ( i == j ) continue;//同じオブジェクト同士の判定はスキップ
+			if ( checkCollision(A, B) ) {	//衝突判定
+				A->onCollision(B);			//dynamicオブジェクト同士の衝突
+				B->onCollision(A);			//Obj同士の衝突
 			}
 		}
 
 		for ( size_t j = 0; j < allEnvs.size(); ++j ) {
 			auto B = allEnvs [j];
-			if ( checkCollision(A, B) ) {	//�ڐG���Ă����
-				A->onCollision(B);			//dynamic���̏Փˏ��������s
-				B->onCollision(A);			//Obj���̏Փˏ��������s
+			if ( checkCollision(A, B) ) {	//衝突判定
+				A->onCollision(B);			//dynamicオブジェクト同士の衝突
+				B->onCollision(A);			//Obj同士の衝突
 			}
 		}
 	}
@@ -116,8 +115,8 @@ void Sequence::checkAllCollision() {
 
 bool Sequence::checkCollision(Object* a, Object* b) {
 	if ( a == b ) { return false; }
-	// �������g�Ƃ̏Փ˂͖���
-	// AABB�ɂ��Փ�
+	// 同じオブジェクト同士の判定はスキップ
+	// AABBの判定
 	if ( a->getAABBoxMax().x >= b->getAABBoxMin().x && a->getAABBoxMin().x <= b->getAABBoxMax().x &&
 		a->getAABBoxMax().y >= b->getAABBoxMin().y && a->getAABBoxMin().y <= b->getAABBoxMax().y &&
 		a->getAABBoxMax().z >= b->getAABBoxMin().z && a->getAABBoxMin().z <= b->getAABBoxMax().z ) {
@@ -128,7 +127,7 @@ bool Sequence::checkCollision(Object* a, Object* b) {
 
 bool Sequence::checkTouching(Object* a, Object* b) {
 	if ( a == b ) { return false; }
-	// �������g�Ƃ̏Փ˖���
+	// 同じオブジェクト同士の判定はスキップ
 	if ( a->getAABBoxMax().x > b->getAABBoxMin().x && a->getAABBoxMin().x < b->getAABBoxMax().x &&
 		a->getAABBoxMax().y > b->getAABBoxMin().y && a->getAABBoxMin().y < b->getAABBoxMax().y &&
 		a->getAABBoxMax().z > b->getAABBoxMin().z && a->getAABBoxMin().z < b->getAABBoxMax().z ) {
@@ -138,8 +137,8 @@ bool Sequence::checkTouching(Object* a, Object* b) {
 }
 
 void Sequence::update() {
-	//�J�����������O���ĕʂŌĂяo��
-	//�S�Ă�Object�ɑ΂���update
+	// 各オブジェクトの更新
+	// 動的オブジェクトの更新
 	for ( Object* obj : Object::allDynamics ) {
 		obj->update();
 	}

@@ -1,4 +1,4 @@
-// Player.h
+ï»¿// Player.h
 #pragma once
 class Player {
 public:
@@ -6,7 +6,7 @@ public:
 
 	void init();
 
-	static Player* player; // ƒVƒ“ƒOƒ‹ƒgƒ“—pƒ|ƒCƒ“ƒ^
+	static Player* player; // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ç”¨ãƒã‚¤ãƒ³ã‚¿
 
 	int hp,
 		score,

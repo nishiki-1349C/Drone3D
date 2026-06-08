@@ -1,10 +1,10 @@
-#include "EnemyMgr.h"
+ï»¿#include "EnemyMgr.h"
 #include "Enemy_Mob.h"
 #include "MainDrone.h"
 using namespace std;
 using namespace glm;
 
-// ŽÀ‘Ì’è‹`
+// å®Ÿä½“å®šç¾©
 std::vector<Enemy*> EnemyMgr::allEnemies;
 glm::vec3* EnemyMgr::dronePos = nullptr;
 

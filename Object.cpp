@@ -1,4 +1,4 @@
-#include "Object.h"
+﻿#include "Object.h"
 #include "CalcVertices.h"
 #include "ObjectStatus.h"
 #include "Renderer3D.h"
@@ -61,16 +61,16 @@ void Object::eraseObjectFrom(std::vector<Object*>& objs, Object* obj) {
 
 void Object::update() {
 	updateAABBox();
-	// �I�u�W�F�N�g���Ƃ̏����������ɒǉ�
+	// 衝突判定のためのAABBoxの更新
 }
 
-// AABBox�̏�����
+// AABBoxの初期化
 void Object::initAABBox() {
 	AABBoxMax = currentPos + size * 0.5f;
 	AABBoxMin = currentPos - size * 0.5f;
 }
 
-// �Փ˒��_�̍X�V
+// 衝突判定用の頂点計算
 void Object::calcColVertices() {
 	if ( objType == ObjectType::dynamic ) {
 		glm::mat4 model = this->getModelMatrix();
@@ -80,19 +80,18 @@ void Object::calcColVertices() {
 	}
 }
 
-// AABBox�̍X�V
+// AABBoxの更新
 void Object::updateAABBox() {
-	//�ړ��ɔ�����AABBox�̒��_���X�V
+	// 衝突判定のためのAABBoxの更新
 	if ( objType == ObjectType::environment ) return;
 	AABBoxMin = currentPos - size * 0.5f;
 	AABBoxMax = currentPos + size * 0.5f;
 }
 
-// AABBox���m�̏Փ˔���
 /*bool Object::checkCollision(Object* other) {
 	if ( other == this ) { return false; }
-	// �������g�Ƃ̏Փ˂͖���
-	// �S���ŏd�Ȃ��Ă���ΏՓ�
+	// 衝突判定のためのAABBoxの更新
+	// AABBox同士の衝突判定
 	if ( AABBoxMax.x >= other->AABBoxMin.x && AABBoxMin.x <= other->AABBoxMax.x &&
 		AABBoxMax.y >= other->AABBoxMin.y && AABBoxMin.y <= other->AABBoxMax.y &&
 		AABBoxMax.z >= other->AABBoxMin.z && AABBoxMin.z <= other->AABBoxMax.z ) {
@@ -105,12 +104,13 @@ void Object::updateAABBox() {
 }*/
 
 
-// �Փˑ���other�Ǝ��g�̏Փˏ���
+// 衝突時の処理
 void Object::onCollision(Object* other) {}
 
+// 衝突時の重なり解消
 void Object::resolveOverlap(Object* other) {
 	if ( objType == ObjectType::dynamic || objType == ObjectType::other ) {
-		//���߂��Ȃ�����
+
 		float overlapX = std::min(AABBoxMax.x, other->AABBoxMax.x) - std::max(AABBoxMin.x, other->AABBoxMin.x);
 		float overlapY = std::min(AABBoxMax.y, other->AABBoxMax.y) - std::max(AABBoxMin.y, other->AABBoxMin.y);
 		float overlapZ = std::min(AABBoxMax.z, other->AABBoxMax.z) - std::max(AABBoxMin.z, other->AABBoxMin.z);
@@ -130,7 +130,7 @@ void Object::resolveOverlap(Object* other) {
 	}
 }
 
-// ���f���s��̌v�Z
+// 衝突時のモデル行列の取得
 glm::mat4 Object::getModelMatrix() const {
 	glm::mat4 m = glm::mat4(1.0f);
 	m = glm::translate(m, currentPos);
@@ -140,4 +140,3 @@ glm::mat4 Object::getModelMatrix() const {
 	m = glm::scale(m, scale);
 	return m;
 }
-

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <unordered_map>
 #include <glm/glm.hpp>
 
@@ -16,7 +16,7 @@ struct EnemyData {
 	glm::vec3 size;
 };
 
-// ƒf[ƒ^QÆ‚·‚éŠÖ”
+// ãƒ‡ãƒ¼ã‚¿å‚ç…§ã™ã‚‹é–¢æ•°
 inline const std::unordered_map<EnemyType, EnemyData>& getEnemyDataTable() {
 	static const std::unordered_map<EnemyType, EnemyData> table = {
 		{ EnemyType::mob,      { 100, 10, glm::vec3(1,0,0), glm::vec3(2,2,2) } },

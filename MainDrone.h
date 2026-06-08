@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Object.h"
 #include "GLFWWrap.h"
 #include "TimeMgr.h"
@@ -40,5 +40,4 @@ private:
 	const glm::vec3 gravity = glm::vec3(0, -9.8, 0);
 	float gravityScale;
 };
-
 
