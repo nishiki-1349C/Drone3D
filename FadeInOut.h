@@ -1,6 +1,5 @@
 #pragma once
 #include "Camera.h"
-#include "MainDrone.h"
 #include "Renderer3D.h"
 #include <glm/glm.hpp>
 

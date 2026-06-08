@@ -1,25 +1,17 @@
 #pragma once
 #include "Object.h"
-//#include "Bullet.h"
-#include "Camera.h"
-#include "FadeInOut.h"
 #include "GLFWWrap.h"
 #include "TimeMgr.h"
-#include <glad/glad.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <GLFW/glfw3.h>
-#include <iostream>
 
-//ƒƒCƒ“‹@‘Ì
+//ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½@ï¿½ï¿½
 class MainDrone : public Object {
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 	MainDrone(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, glm::vec3 size, glm::vec3 pos);
 	~MainDrone() override final;
 
-	void update();//•¨—‰‰Z
+	void update();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Z
 	void onCollision(Object* other) override final;
 	static MainDrone* mainDrone;
 
@@ -29,9 +21,9 @@ public:
 	static glm::vec3 initPos;
 
 private:
-	void move();			//ˆÚ“®ˆ—
-	void operate();			//‘€ì“ü—Íˆ—
-	//void calcDroneVelocity();//–ˆƒtƒŒ[ƒ€‘¬“xŒvZ
+	void move();			//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+	void operate();			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íï¿½ï¿½ï¿½
+	//void calcDroneVelocity();//ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½vï¿½Z
 
 	static glm::vec3 forward;
 	static glm::vec3 right;
@@ -40,7 +32,7 @@ private:
 	bool isOverSpeed;
 	float acceleration = 30.0f;
 	float upAcceleration = 2.0f;
-	float drag = 0.75f;												//…•½–Êã‚ÌŒ¸‘¬
+	float drag = 0.75f;												//ï¿½ï¿½ï¿½ï¿½ï¿½Êï¿½ÌŒï¿½ï¿½ï¿½
 	float horizontalSpeedLimit = 30.0f;
 	float fallSpeedLimit = 30.0f;
 	float mainDroneSpeedMin = 0.1f;
