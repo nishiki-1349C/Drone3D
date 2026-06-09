@@ -1,23 +1,45 @@
-﻿#include "LineRenderer.h"
+#include "LineRenderer.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <cmath>
+using namespace std;
+using namespace glm;
 
 GLuint LineRenderer::lineShader = 0;
 bool LineRenderer::shaderInitialized = false;
-std::vector<LineRenderer*> LineRenderer::allLineRenderers;
+vector<LineRenderer*> LineRenderer::allLineRenderers;
 Camera* LineRenderer::cam = nullptr;
 
 LineRenderer::LineRenderer() {
 	allLineRenderers.push_back(this);
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	// GPUへ渡す頂点レイアウト: position(vec3) + color(vec3) = 6floats
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glBindVertexArray(0);
 }
 
 LineRenderer::~LineRenderer() {
+	EraseLR();
 	allLineRenderers.erase(
-		std::remove(allLineRenderers.begin(), allLineRenderers.end(), this),
+		remove(allLineRenderers.begin(), allLineRenderers.end(), this),
 		allLineRenderers.end()
 	);
+}
+
+void LineRenderer::EraseLR() {
 	if ( VAO ) glDeleteVertexArrays(1, &VAO);
 	if ( VBO ) glDeleteBuffers(1, &VBO);
+	VAO = 0;
+	VBO = 0;
 }
 
 void LineRenderer::init() {
@@ -25,53 +47,53 @@ void LineRenderer::init() {
 		compileLineShader();
 		shaderInitialized = true;
 	}
-	if ( !VAO ) glGenVertexArrays(1, &VAO);
-	if ( !VBO ) glGenBuffers(1, &VBO);
-
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(LineVertex), (void*)offsetof(LineVertex, position));
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(LineVertex), (void*)offsetof(LineVertex, color));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(LineVertex), (void*)offsetof(LineVertex, width));
-	glEnableVertexAttribArray(2);
-
-	glBindVertexArray(0);
-
 	cam = Camera::cam;
 }
 
-void LineRenderer::drawLine(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& color, float width) {
-	LineVertex verts [2] = {
-		{p1, color, width},
-		{p2, color, width}
-	};
+void LineRenderer::addLine(const vec2& p1, const vec2& p2, const vec3& color, float width) {
+	lineVertices.push_back({ vec3(p1, 0.0f), vec3(p2, 0.0f), color, width, false });
+}
 
-	glLineWidth(width);
+void LineRenderer::addLine3D(const vec3& p1, const vec3& p2, const vec3& color, float width) {
+	lineVertices.push_back({ p1, p2, color, width, true });
+}
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_DYNAMIC_DRAW);
+void LineRenderer::draw() {
+	if ( lineVertices.empty() ) return;
+
+	if ( !depthTest ) glDisable(GL_DEPTH_TEST);
+
 	glUseProgram(lineShader);
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_LINES, 0, 2);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	for ( auto& lv : lineVertices ) {
+		// 3Dラインはdraw()時にワールド座標→NDCへ変換（カメラ移動に追従）
+		vec3 s = lv.is3D ? worldToNDC(lv.start, cam) : lv.start;
+		vec3 e = lv.is3D ? worldToNDC(lv.end,   cam) : lv.end;
+
+		float verts[] = {
+			s.x, s.y, s.z, lv.color.r, lv.color.g, lv.color.b,
+			e.x, e.y, e.z, lv.color.r, lv.color.g, lv.color.b
+		};
+
+		glLineWidth(lv.width);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_DYNAMIC_DRAW);
+		glDrawArrays(GL_LINES, 0, 2);
+	}
+
 	glBindVertexArray(0);
-
 	glLineWidth(1.0f);
+
+	if ( !depthTest ) glEnable(GL_DEPTH_TEST);
+
+	lineVertices.clear();
 }
 
-glm::vec3 LineRenderer::worldToNDC(const glm::vec3& worldPos, Camera* cam) {
-	glm::vec4 clipPos = cam->proj * cam->view * glm::vec4(worldPos, 1.0f);
-	if ( std::abs(clipPos.w) < 1e-6f ) return glm::vec3(0.0f);
-	return glm::vec3(clipPos) / clipPos.w;
-}
-
-void LineRenderer::drawLine3D(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& color, float width, Camera* cam) {
-	if ( !cam ) return;
-	glm::vec3 ndcP1 = worldToNDC(p1, cam);
-	glm::vec3 ndcP2 = worldToNDC(p2, cam);
-	drawLine(ndcP1, ndcP2, color, width);
+vec3 LineRenderer::worldToNDC(const vec3& worldPos, Camera* cam) {
+	vec4 clipPos = cam->proj * cam->view * vec4(worldPos, 1.0f);
+	if ( abs(clipPos.w) < 1e-6f ) return vec3(0.0f);
+	return vec3(clipPos) / clipPos.w;
 }
 
 void LineRenderer::drawAllLineRenderers() {
@@ -80,27 +102,21 @@ void LineRenderer::drawAllLineRenderers() {
 	}
 }
 
-void LineRenderer::draw() {}
-
 void LineRenderer::compileLineShader() {
 	const char* vsSrc = R"(
         #version 330 core
         layout(location = 0) in vec3 aPos;
         layout(location = 1) in vec3 aColor;
-        layout(location = 2) in float aWidth;
         out vec3 vColor;
-        out float vWidth;
         void main() {
             gl_Position = vec4(aPos, 1.0);
             vColor = aColor;
-            vWidth = aWidth;
         }
     )";
 
 	const char* fsSrc = R"(
         #version 330 core
         in vec3 vColor;
-        in float vWidth;
         out vec4 FragColor;
         void main() { FragColor = vec4(vColor, 1.0); }
     )";

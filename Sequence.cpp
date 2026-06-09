@@ -4,9 +4,10 @@
 #include "EnemyMgr.h"
 #include "FadeInOut.h"
 #include "GLFWWrap.h"
+#include "LineRenderer.h"
 #include "Player.h"
-#include "StageObject.h"
 #include "Renderer3D.h"
+#include "StageObject.h"
 #include <string>
 using namespace glm;
 using namespace std;
@@ -36,6 +37,7 @@ void Sequence::init() {
 	GLFWWrap::init();		// ウィンドウの初期化
 	TimeMgr::init(60.0f);	// 固定FPSの設定
 	FadeInOut::init();		// フェードイン・フェードアウトの初期化
+	LineRenderer::init();	// LineRendererの初期化
 }
 
 // インスタンス生成
