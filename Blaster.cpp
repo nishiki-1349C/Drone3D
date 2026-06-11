@@ -1,14 +1,8 @@
-﻿#include "Blaster.h"
+#include "Blaster.h"
 #include "Camera.h"
 #include "MainDrone.h"
 using namespace glm;
 using namespace std;
-
-//静的メンバの実体定義
-vector<Bullet*> Blaster::bullets;
-vec3 Blaster::bulletSpawnPos = vec3(0.0f);
-float Blaster::shotTimer = 0.0f;
-float Blaster::shotInterval = 1.0f; // 1秒ごとに発射
 
 void Blaster::init() {}
 

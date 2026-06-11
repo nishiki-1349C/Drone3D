@@ -8,7 +8,7 @@
 // ウィンドウ生成のラップ関数
 class GLFWWrap {
 public:
-	static GLFWwindow* window;
+	static inline GLFWwindow* window = nullptr;
 
 	// ウィンドウ作成
 	static int createWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
@@ -28,12 +28,12 @@ public:
 	static const int winHeight = 800;
 
 	// マウスの移動量
-	static float deltaMouseXPos;
-	static float deltaMouseYPos;
+	static inline float deltaMouseXPos = 0.0f;
+	static inline float deltaMouseYPos = 0.0f;
 
 private:
 	//マウス操作
-	static bool  initMouse;
-	static float lastXPos;
-	static float lastYPos;
+	static inline bool  initMouse = true;
+	static inline float lastXPos  = 0.0f;
+	static inline float lastYPos  = 0.0f;
 };

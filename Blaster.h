@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Bullet.h"
 #include "GLFWWrap.h"
 #include <vector>
@@ -17,12 +17,12 @@ public:
 	static float getShotTimer() { return shotTimer; }
 	static float getShotInterval() { return shotInterval; }
 
-	static std::vector<Bullet*> bullets;
+	static inline std::vector<Bullet*> bullets;
 private:
-	static glm::vec3 bulletSpawnPos;
+	static inline glm::vec3 bulletSpawnPos = glm::vec3(0.0f);
 
-	static float shotTimer;
-	static float shotInterval;
+	static inline float shotTimer = 0.0f;
+	static inline float shotInterval = 0.5f;
 
 
 

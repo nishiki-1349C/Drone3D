@@ -1,21 +1,15 @@
-﻿#include "FadeInOut.h"
+#include "FadeInOut.h"
 #include "MainDrone.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <algorithm>
 
 // Renderer3D.cpp で定義されているグローバルカラーを使用
 extern glm::vec3 white, black, blue;
-// 静的メンバの実体定義
-MainDrone* FadeInOut::drone = MainDrone::mainDrone;
-
-// シェーダー・描画系
-GLuint FadeInOut::VAO = 0, FadeInOut::VBO = 0, FadeInOut::shaderProgram = 0;
-float FadeInOut::alpha = 1.0f;
-float FadeInOut::fadeSpeed = 0.5f;
 
 void FadeInOut::init() {
 	initRenderData();
 	compileShader();
+	drone = MainDrone::mainDrone;
 }
 
 void FadeInOut::fadeInOut(const glm::vec3& color, float deltaTime, float duration) {

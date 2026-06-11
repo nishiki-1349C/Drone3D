@@ -4,10 +4,6 @@
 using namespace std;
 using namespace glm;
 
-GLuint LineRenderer::lineShader = 0;
-bool LineRenderer::shaderInitialized = false;
-vector<LineRenderer*> LineRenderer::allLineRenderers;
-Camera* LineRenderer::cam = nullptr;
 
 LineRenderer::LineRenderer() {
 	allLineRenderers.push_back(this);
@@ -160,7 +156,7 @@ void LineRenderer::compileLineShader() {
 void LineRenderer::setInstance() {
 	static LineRenderer grid;
 	const float haba = 10.0f;
-	const int lineNum = 30.0f;
+	const float lineNum = 30.0f;
 	const float half = (lineNum - 1) * haba / 2.0f;
 	const vec3 color(1.0f, 0.0f, 0.0f);
 	const float y = 0.01f;

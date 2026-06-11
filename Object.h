@@ -39,7 +39,9 @@ public:
 	glm::vec3   size = glm::vec3(0);
 	glm::vec3   currentPos = glm::vec3(0);
 
-	static std::vector<Object*> allObjects, allDynamics, allEnvironments;
+	static inline std::vector<Object*> allObjects;
+	static inline std::vector<Object*> allDynamics;
+	static inline std::vector<Object*> allEnvironments;
 
 protected:
 	void updateAABBox();// AABBoxの更新

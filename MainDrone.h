@@ -13,20 +13,20 @@ public:
 
 	void update();//�������Z
 	void onCollision(Object* other) override final;
-	static MainDrone* mainDrone;
+	static inline MainDrone* mainDrone = nullptr;
 
 	glm::vec3 lastPos,
 		droneVelocity = glm::vec3(0, 0, 0);
 
-	static glm::vec3 initPos;
+	static inline glm::vec3 initPos = glm::vec3(0, 40, 0);
 
 private:
 	void move();			//�ړ�����
 	void operate();			//������͏���
 	//void calcDroneVelocity();//���t���[�����x�v�Z
 
-	static glm::vec3 forward;
-	static glm::vec3 right;
+	static inline glm::vec3 forward = glm::vec3(0, 0, 1);
+	static inline glm::vec3 right   = glm::vec3(1, 0, 0);
 
 
 	bool isOverSpeed;

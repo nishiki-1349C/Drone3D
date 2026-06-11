@@ -38,9 +38,9 @@ GLuint VAO = 0, VBO = 0;
 	bool depthTest = true; // falseにすると常に前面に描画
 	bool isDynamic = false;
 
-	static std::vector<LineRenderer*> allLineRenderers;
-	static GLuint lineShader;
-	static Camera* cam;
-	static bool shaderInitialized;
+	static inline std::vector<LineRenderer*> allLineRenderers;
+	static inline GLuint   lineShader        = 0;
+	static inline Camera*  cam               = nullptr;
+	static inline bool     shaderInitialized = false;
 	static void compileLineShader();
 };

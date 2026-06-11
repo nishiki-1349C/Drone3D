@@ -1,13 +1,6 @@
 ﻿#include "GLFWWrap.h"
 using namespace std;
 
-// 静的メンバの実体定義
-GLFWwindow* GLFWWrap::window = nullptr;
-float GLFWWrap::deltaMouseXPos = 0.0f;
-float GLFWWrap::deltaMouseYPos = 0.0f;
-bool  GLFWWrap::initMouse = true;
-float GLFWWrap::lastXPos = 0.0f;
-float GLFWWrap::lastYPos = 0.0f;
 
 // ウィンドウ生成
 int GLFWWrap::createWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share) {

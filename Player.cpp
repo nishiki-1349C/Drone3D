@@ -1,6 +1,5 @@
 ﻿#include "Player.h"
 
-Player* Player::player = nullptr;
 
 Player::Player(int hp, int score, int attack)
 	: hp(hp)

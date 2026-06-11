@@ -1,4 +1,4 @@
-﻿#include "Camera.h"
+#include "Camera.h"
 #include "CalcVertices.h"
 #include "GLFWWrap.h"
 #include "MainDrone.h"
@@ -9,17 +9,7 @@
 using namespace glm;
 using namespace std;
 
-// 定数定義
-const float Camera::pitchRange = 65.0f;
-const vec3 Camera::initPos = MainDrone::initPos + vec3(0, 10, 0);
 
-
-// 静的メンバの実体定義
-Camera* Camera::cam = nullptr;
-float Camera::camLengthMax = 15.0f;
-float Camera::camLengthMin;
-float Camera::camZoomSpeed = 0.1f;
-//vec3 color = vec3(0);
 
 Camera::Camera()
 //:Object(ShapeType::box, ObjectTag::cam, ObjectType::cam, color, vec3(1), Camera::initCamPos)
@@ -88,7 +78,7 @@ void Camera::updateYawPitch() {
 
 	if ( yaw >= 360 ) { yaw -= 360; }
 	else if ( yaw < 0 ) { yaw += 360; }
-	pitch = clamp(pitch, -pitchRange, pitchRange);
+	pitch = std::clamp(pitch, -pitchRange, pitchRange);
 }
 
 void Camera::moveCamPos() {

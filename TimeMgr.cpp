@@ -2,11 +2,6 @@
 #include <algorithm>
 
 
-float TimeMgr::FPS = 60;
-float TimeMgr::fixedDelta = 1.0f / 60.0f;
-double TimeMgr::timer = 0.0;
-TimeMgr::time_point TimeMgr::currentTime;
-float TimeMgr::deltaTime = 0.0f;
 
 
 void TimeMgr::init(float targetFps) {

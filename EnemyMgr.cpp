@@ -4,9 +4,6 @@
 using namespace std;
 using namespace glm;
 
-// 実体定義
-std::vector<Enemy*> EnemyMgr::allEnemies;
-glm::vec3* EnemyMgr::dronePos = nullptr;
 
 void EnemyMgr::init() {
 	dronePos = &MainDrone::mainDrone->currentPos;

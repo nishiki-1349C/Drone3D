@@ -11,10 +11,6 @@
 using namespace glm;
 using namespace std;
 
-// �ÓI�����o�ϐ��̒�`
-std::vector<Object*> Object::allObjects;
-std::vector<Object*> Object::allDynamics;
-std::vector<Object*> Object::allEnvironments;
 
 // �R���X�g���N�^
 Object::Object(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, glm::vec3 size, glm::vec3 pos)

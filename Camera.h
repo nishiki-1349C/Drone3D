@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Object.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -9,9 +9,9 @@ public:
 	Camera();
 	~Camera() = default;
 
-	void update();
 
-	static Camera* cam;
+	void update();
+	static inline Camera* cam = nullptr;
 
 	// 行列とベクトル
 	glm::mat4 view;
@@ -21,14 +21,14 @@ public:
 	glm::vec3 forward;						//カメラの視点方向 target- camPos の正規
 	glm::vec3 camPos;
 
-	//const Camera* getCam() const { return cam; }
+	// ゲッター
 	const float getYaw() const { return yaw; }
 	const float getPitch() const { return pitch; }
 
 private:
 	void updateAABBox();
 	void resolveCamCollision();
-	void updateYawPitch();					//マウスの動きから方向を示す変数を更新
+	void updateYawPitch();							//マウスの動きから方向を示す変数を更新
 	void moveCamPos();
 	void calcViewMatrix();
 
@@ -36,13 +36,16 @@ private:
 
 	glm::vec3 size;
 	glm::vec3 AABBmax, AABBmin;
-	int viewWidth, viewHeight;				//ビューポートの幅と高さ
-	float viewAngle;						//視野角
-	float camPosSpeed;						//視点移動速度
-	float yaw, pitch;						//yaw は←→、pitch は↑↓の回転角
-	float camLength;						//カメラとターゲットの距離
-	static float camLengthMax, camLengthMin, camZoomSpeed;
-	const static float pitchRange;			//カメラの上下回転の制限角度
-	const static glm::vec3 initPos;
+	int viewWidth, viewHeight;						//ビューポートの幅と高さ
+	float viewAngle;								//視野角
+	float camPosSpeed;								//視点移動速度
+	float yaw, pitch;								//yaw は←→、pitch は↑↓の回転角
+	float camLength;								//カメラとターゲットの距離
+
+	static inline float camLengthMax = 15.0f;
+	static inline float camLengthMin = 1.0f;
+	static inline float camZoomSpeed = 0.1f;
+	static inline float pitchRange = 65.0f;	//カメラの上下回転の制限角度
+	static inline glm::vec3 initPos = glm::vec3(0, 50, 0);
 
 };

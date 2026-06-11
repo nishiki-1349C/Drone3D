@@ -5,11 +5,6 @@
 using namespace glm;
 using namespace std;
 
-// 静的メンバの実体定義
-MainDrone* MainDrone::mainDrone = nullptr;
-vec3 MainDrone::initPos = vec3(0, 40, 0);
-vec3 MainDrone::forward = vec3(0, 0, 1);
-vec3 MainDrone::right = vec3(1, 0, 0);
 
 MainDrone::MainDrone(ShapeType shape, ObjectTag obj, ObjectType act, vec3 color, vec3 size, vec3 pos)
 //Object::Object(ShapeType shape, ObjectType obj, dynamicType act, vec3 color, vec3 size, vec3 pos)

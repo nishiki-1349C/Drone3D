@@ -21,9 +21,9 @@ public:
 	void drawShadowOn(const Object* receiver);// 影をreceiverオブジェクトの上面に投影する
 	const Object& getObj() const { return obj; }
 
-	static glm::vec3 lightPos;
+	static inline glm::vec3 lightPos = glm::vec3(0, 50.0f, 0);
 
-	static std::vector<Renderer3D*> allRenderers;
+	static inline std::vector<Renderer3D*> allRenderers;
 
 protected:
 	// obj.visVertices を GPU に転送する（init前にvisVerticesを構築しておくこと）
@@ -40,7 +40,7 @@ protected:
 	GLuint shaderProgram = 0;
 	GLuint shadowShader = 0;
 
-	static GLuint sharedShaderProgram;
-	static GLuint sharedShadowShader;
-	static int    shaderRefCount;
+	static inline GLuint sharedShaderProgram = 0;
+	static inline GLuint sharedShadowShader  = 0;
+	static inline int    shaderRefCount      = 0;
 };

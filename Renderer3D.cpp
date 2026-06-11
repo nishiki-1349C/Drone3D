@@ -1,11 +1,5 @@
 ﻿#include "Renderer3D.h"
 
-// --- 静的メンバの定義 ---
-std::vector<Renderer3D*> Renderer3D::allRenderers;
-glm::vec3 Renderer3D::lightPos = glm::vec3(0, 50.0f, 0);
-GLuint    Renderer3D::sharedShaderProgram = 0;
-GLuint    Renderer3D::sharedShadowShader = 0;
-int       Renderer3D::shaderRefCount = 0;
 
 // 色定数の定義（Renderer3DComponent.h で extern しているので外部から参照可能）
 glm::vec3 white = glm::vec3(1.0f, 1.0f, 1.0f);

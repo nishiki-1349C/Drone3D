@@ -10,9 +10,9 @@ public:
 	static void checkDeadEnemy();
 	static void deleteAllEnemies();
 
-	static glm::vec3* dronePos;
+	static inline glm::vec3* dronePos = nullptr;
 private:
 	static void deleteEnemy(Enemy* enemy);
 
-	static std::vector<Enemy*> allEnemies;
+	static inline std::vector<Enemy*> allEnemies;
 };

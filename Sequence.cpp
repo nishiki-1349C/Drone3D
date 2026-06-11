@@ -1,4 +1,4 @@
-﻿#include "Sequence.h"
+#include "Sequence.h"
 #include "Blaster.h"
 #include "CalcVertices.h"
 #include "EnemyMgr.h"
@@ -48,8 +48,9 @@ void Sequence::setInstance() {
 	EnemyMgr::init();
 	Camera::cam = new Camera();
 	StageObject::constructStage();
-	new Player(100, 0, 10);  // �� �ǉ��ihp, score, attack �͓K�X�j
+	new Player(100, 0, 10);			//hp, score, attack
 
+	LineRenderer::setInstance();
 	//Object* sphere = new Object(ShapeType::sphere, ObjectTag::none, ObjectType::environment, vec3(0.0f, 0.2f, 0.7f), vec3(5), vec3(0, 10, 10));
 }
 

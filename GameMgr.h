@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 enum class gameState {
 	none,
@@ -13,9 +13,11 @@ public:
 	static void doPhase();
 	static void resetGame();
 
-	static gameState state;
-	static bool isGameOver;
+	static inline gameState state = gameState::loading;
+	static inline bool isGameOver = false;
 
 private:
-	static float loadTime, loadTimer;
+	static inline float loadTime = 1.0f;
+	static inline float loadTimer = loadTime;
+	static inline bool isLoaded = false;
 };

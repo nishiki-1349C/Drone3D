@@ -6,7 +6,7 @@ public:
 
 	void init();
 
-	static Player* player; // シングルトン用ポインタ
+	static inline Player* player = nullptr; // シングルトン用ポインタ
 
 	int hp,
 		score,

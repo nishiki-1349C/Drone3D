@@ -24,11 +24,11 @@ private:
 	using clock = std::chrono::steady_clock;
 	using time_point = std::chrono::time_point<clock>;
 
-	static float FPS;
-	static float fixedDelta;
-	static double timer;
-	static time_point currentTime;
-	static float deltaTime;
+	static inline float      FPS        = 60;
+	static inline float      fixedDelta = 1.0f / 60.0f;
+	static inline double     timer      = 0.0;
+	static inline time_point currentTime;
+	static inline float      deltaTime  = 0.0f;
 };
 
 //外部からはグローバル関数で呼び出し

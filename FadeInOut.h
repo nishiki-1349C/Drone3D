@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Camera.h"
 #include "Renderer3D.h"
 #include <glm/glm.hpp>
@@ -19,12 +19,12 @@ public:
 
 private:
 	// static 関数から触るため static に変更
-	static MainDrone* drone;
-	static GLuint VAO;
-	static GLuint VBO;
-	static GLuint shaderProgram;
-	static float alpha;
-	static float fadeSpeed;
+	static inline MainDrone* drone = nullptr;
+	static inline GLuint VAO = 0;
+	static inline GLuint VBO = 0;
+	static inline GLuint shaderProgram = 0;
+	static inline float  alpha = 1.0f;
+	static inline float  fadeSpeed = 0.5f;
 
 	static void FadeIn(); // 位置リセット用（必要なら）
 	static void compileShader();

@@ -4,11 +4,6 @@
 #include "Sequence.h"
 #include "LineRenderer.h"
 
-// 静的メンバの実体定義
-gameState GameMgr::state = gameState::loading;
-float GameMgr::loadTime = 1.0f;
-float GameMgr::loadTimer = GameMgr::loadTime;
-bool GameMgr::isGameOver = false;
 
 void GameMgr::doPhase() {
 	switch ( state ) {
