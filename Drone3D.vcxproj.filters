@@ -25,6 +25,12 @@
     <Filter Include="ソース ファイル\Enemyソース">
       <UniqueIdentifier>{23cf58a6-456b-4b3c-a3d0-68d3bca208a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\LineRendererソース">
+      <UniqueIdentifier>{7ce3d6ce-b302-4da9-a442-9ec7bf500202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\LineRendererヘッダー">
+      <UniqueIdentifier>{3f8f5237-cbb1-4a1f-891a-baa9a943e709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,9 +52,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="LineRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="FadeInOut.cpp">
@@ -102,6 +105,9 @@
     <ClCompile Include="GameMgr.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="LineRenderer.cpp">
+      <Filter>ソース ファイル\LineRendererソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLFWWrap.h">
@@ -117,9 +123,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="LineRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="FadeInOut.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="GameMgr.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="LineRenderer.h">
+      <Filter>ヘッダー ファイル\LineRendererヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

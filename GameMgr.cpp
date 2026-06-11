@@ -1,7 +1,8 @@
-﻿#include "GameMgr.h"
+#include "GameMgr.h"
 #include "Blaster.h"
 #include "Camera.h"
 #include "Sequence.h"
+#include "LineRenderer.h"
 
 // 静的メンバの実体定義
 gameState GameMgr::state = gameState::loading;
@@ -39,6 +40,7 @@ void GameMgr::doPhase() {
 
 				Camera::cam->update();			//カメラ更新
 			}
+			LineRenderer::drawAllLineRenderers();	//ライン描画
 			if ( isGameOver ) {				// ゲームオーバーに遷移
 				state = gameState::gameOver;
 				isGameOver = false;

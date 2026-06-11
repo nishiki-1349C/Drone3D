@@ -14,26 +14,29 @@ struct LineVertex {
 
 class LineRenderer {
 public:
-	LineRenderer();
+	LineRenderer();			// 静的線描画
+	LineRenderer(bool st);	// 動的線描画
 	~LineRenderer();
 	void EraseLR();
 
+	virtual void update();
 	// 2D（NDC座標で直接登録）
 	void addLine(const glm::vec2& p1, const glm::vec2& p2, const glm::vec3& color, float width);
 	// 3D（ワールド座標で登録、draw()時に変換）
 	void addLine3D(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& color, float width);
-	// lineVerticesを全て描画してクリア
+	// lineVerticesを描画、三次元は毎フレーム変換
 	void draw();
 
-	static void init();
-	static void drawAllLineRenderers();
+	static void init();					// static 変数の初期化
+	static void setInstance();			// インスタンスの設定
+
+	static void drawAllLineRenderers();	// 全ての描画
 
 protected:
-	glm::vec3 worldToNDC(const glm::vec3& worldPos, Camera* cam);
-
-	GLuint VAO = 0, VBO = 0;
+GLuint VAO = 0, VBO = 0;
 	std::vector<LineVertex> lineVertices;
 	bool depthTest = true; // falseにすると常に前面に描画
+	bool isDynamic = false;
 
 	static std::vector<LineRenderer*> allLineRenderers;
 	static GLuint lineShader;
