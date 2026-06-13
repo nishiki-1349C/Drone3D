@@ -4,14 +4,14 @@
 #include "TimeMgr.h"
 #include <glm/glm.hpp>
 
-//���C���@��
+// メインドローン
 class MainDrone : public Object {
 public:
-	//�R���X�g���N�^
+	// コンストラクタ
 	MainDrone(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, glm::vec3 size, glm::vec3 pos);
 	~MainDrone() override final;
 
-	void update();//�������Z
+	void update();
 	void onCollision(Object* other) override final;
 	static inline MainDrone* mainDrone = nullptr;
 
@@ -21,18 +21,16 @@ public:
 	static inline glm::vec3 initPos = glm::vec3(0, 40, 0);
 
 private:
-	void move();			//�ړ�����
-	void operate();			//������͏���
-	//void calcDroneVelocity();//���t���[�����x�v�Z
+	void move();
+	void operate();
 
 	static inline glm::vec3 forward = glm::vec3(0, 0, 1);
 	static inline glm::vec3 right   = glm::vec3(1, 0, 0);
 
-
 	bool isOverSpeed;
 	float acceleration = 30.0f;
 	float upAcceleration = 2.0f;
-	float drag = 0.75f;												//�����ʏ�̌���
+	float drag = 0.75f;
 	float horizontalSpeedLimit = 30.0f;
 	float fallSpeedLimit = 30.0f;
 	float mainDroneSpeedMin = 0.1f;

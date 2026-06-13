@@ -32,24 +32,24 @@ void StageObject::setData() {
 	StageObject::objData = {
 		// 地面
 		{ ShapeType::box, ObjectTag::ground, ObjectType::environment,
-		glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(200, 1, 200), glm::vec3(0, -0.5f, 0),
+		glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(200, 10, 200), glm::vec3(0, -5.0f, 0),
 		StageNum::defaultStage },
 
 		// 壁
 		{ ShapeType::box, ObjectTag::wall, ObjectType::environment,
-		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(200, wallHeight, 1), glm::vec3(0, wallHeight / 2.0f, -100),
+		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(200, wallHeight, 10), glm::vec3(0, wallHeight / 2.0f, -104.5f),
 		StageNum::defaultStage },
 
 		{ ShapeType::box, ObjectTag::wall, ObjectType::environment,
-		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(200, wallHeight, 1), glm::vec3(0, wallHeight / 2.0f, 100),
+		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(200, wallHeight, 10), glm::vec3(0, wallHeight / 2.0f, 104.5f),
 		StageNum::defaultStage },
 
 		 { ShapeType::box, ObjectTag::wall, ObjectType::environment,
-		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1, wallHeight, 200), glm::vec3(-100, wallHeight / 2.0f, 0),
+		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(10, wallHeight, 200), glm::vec3(-104.5f, wallHeight / 2.0f, 0),
 		StageNum::defaultStage },
 
 		{ ShapeType::box, ObjectTag::wall, ObjectType::environment,
-		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1, wallHeight, 200), glm::vec3(100, wallHeight / 2.0f, 0),
+		glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(10, wallHeight, 200), glm::vec3(104.5f, wallHeight / 2.0f, 0),
 		StageNum::defaultStage },
 	};
 }

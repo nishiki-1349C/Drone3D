@@ -103,27 +103,35 @@ void Object::updateAABBox() {
 // 衝突時の処理
 void Object::onCollision(Object* other) {}
 
-// 衝突時の重なり解消
-void Object::resolveOverlap(Object* other) {
+// 衝突時の重なり解消、補正した軸方向の単位ベクトルを返す
+glm::vec3 Object::resolveOverlap(Object* other) {
 	if ( objType == ObjectType::dynamic || objType == ObjectType::other ) {
 
 		float overlapX = std::min(AABBoxMax.x, other->AABBoxMax.x) - std::max(AABBoxMin.x, other->AABBoxMin.x);
 		float overlapY = std::min(AABBoxMax.y, other->AABBoxMax.y) - std::max(AABBoxMin.y, other->AABBoxMin.y);
 		float overlapZ = std::min(AABBoxMax.z, other->AABBoxMax.z) - std::max(AABBoxMin.z, other->AABBoxMin.z);
 
+		constexpr float epsilon = 0.001f;
 		if ( overlapX < overlapY && overlapX < overlapZ ) {
-			if ( currentPos.x < other->currentPos.x ) currentPos.x -= overlapX;
-			else currentPos.x += overlapX;
+			if ( currentPos.x < other->currentPos.x ) currentPos.x -= overlapX + epsilon;
+			else currentPos.x += overlapX + epsilon;
+			updateAABBox();
+			return glm::vec3(1, 0, 0);
 		}
 		else if ( overlapY < overlapZ ) {
-			if ( currentPos.y < other->currentPos.y ) currentPos.y -= overlapY;
-			else currentPos.y += overlapY;
+			if ( currentPos.y < other->currentPos.y ) currentPos.y -= overlapY + epsilon;
+			else currentPos.y += overlapY + epsilon;
+			updateAABBox();
+			return glm::vec3(0, 1, 0);
 		}
 		else {
-			if ( currentPos.z < other->currentPos.z ) currentPos.z -= overlapZ;
-			else currentPos.z += overlapZ;
+			if ( currentPos.z < other->currentPos.z ) currentPos.z -= overlapZ + epsilon;
+			else currentPos.z += overlapZ + epsilon;
+			updateAABBox();
+			return glm::vec3(0, 0, 1);
 		}
 	}
+	return glm::vec3(0);
 }
 
 // 衝突時のモデル行列の取得

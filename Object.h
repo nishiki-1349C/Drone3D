@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "ObjectStatus.h"
 #include "VisTypes.h"
 #include <glm/glm.hpp>
@@ -22,7 +22,7 @@ public:
 	virtual void calcColVertices();
 
 	virtual void onCollision(Object* other);			//衝突時の処理 
-	virtual void resolveOverlap(Object* other) final;	//衝突時の重なり解消
+	virtual glm::vec3 resolveOverlap(Object* other) final;	//衝突時の重なり解消、補正軸を返す
 	virtual glm::mat4 getModelMatrix() const;			// モデル行列の計算
 
 	// ゲッター
@@ -39,6 +39,9 @@ public:
 	glm::vec3   size = glm::vec3(0);
 	glm::vec3   currentPos = glm::vec3(0);
 
+	ObjectTag	objTag;
+	ObjectType   objType;
+
 	static inline std::vector<Object*> allObjects;
 	static inline std::vector<Object*> allDynamics;
 	static inline std::vector<Object*> allEnvironments;
@@ -52,8 +55,6 @@ protected:
 	glm::vec3   scale = glm::vec3(1);
 	glm::vec3   rotation = glm::vec3(0);
 	ShapeType   shapeType;
-	ObjectTag	objTag;
-	ObjectType   objType;
 
 	//衝突判定用
 	std::vector<glm::vec3> colVertices;

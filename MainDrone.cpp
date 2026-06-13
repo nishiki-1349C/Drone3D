@@ -1,4 +1,4 @@
-﻿#include "MainDrone.h"
+#include "MainDrone.h"
 #include "Blaster.h"
 #include "Camera.h"
 #include "GameMgr.h"
@@ -24,8 +24,8 @@ MainDrone::~MainDrone() {
 
 void MainDrone::update() {
 	if ( !Camera::cam ) return;
-	updateAABBox();
 	move();
+	updateAABBox();
 	//calcDroneVelocity();
 
 
@@ -91,10 +91,21 @@ void MainDrone::operate() {
 
 
 void MainDrone::onCollision(Object* other) {
-	droneVelocity.y = 0;
 
-	// 他のオブジェクトに衝突したら自身を動かす
-	if ( other->getObjTag() != ObjectTag::bullet ) { resolveOverlap(other); }
+
+	switch ( other->getObjTag() ) {
+		case ObjectTag::ground:
+		case ObjectTag::ceiling:
+			droneVelocity.y = 0;
+			resolveOverlap(other);
+			break;
+		case ObjectTag::wall: {
+			glm::vec3 axis = resolveOverlap(other);
+			droneVelocity *= glm::vec3(1) - axis;
+			break;
+		}
+		default: break;
+	}
 
 	// 衝突時の処理
 	/*if ( other->getdynamicType() == dynamicType::environment ) {
