@@ -36,6 +36,7 @@ public:
 	std::vector<Vertex> visVertices;
 
 	glm::vec3   color = glm::vec3(1);
+	float       alpha = 1.0f;
 	glm::vec3   size = glm::vec3(0);
 	glm::vec3   currentPos = glm::vec3(0);
 

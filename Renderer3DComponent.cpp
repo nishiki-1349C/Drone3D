@@ -123,13 +123,15 @@ void Renderer3DComponent::compileMainShader(GLuint& outProgram) {
 
         out vec4 FragColor;
 
-        uniform vec3 uLightPos;
+        uniform vec3  uLightPos;
+        uniform vec3  uColor;
+        uniform float uAlpha;
 
         void main() {
             vec3  lightDir   = normalize(uLightPos - FragPos);
             float diff       = max(dot(normalize(Normal), lightDir), 0.0);
             float brightness = 0.2 + diff;
-            FragColor = vec4(Color * brightness, 1.0);
+            FragColor = vec4(Color * uColor * brightness, uAlpha);
         }
     )";
 

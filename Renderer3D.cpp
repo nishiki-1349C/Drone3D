@@ -47,11 +47,9 @@ glm::mat4 Renderer3D::calculateModelMatrix() const {
 
 void Renderer3D::draw() {
 	glUseProgram(shaderProgram);
-	glUniform3fv(
-		glGetUniformLocation(shaderProgram, "uLightPos"),
-		1,
-		glm::value_ptr(lightPos)
-	);
+	glUniform3fv(glGetUniformLocation(shaderProgram, "uLightPos"), 1, glm::value_ptr(lightPos));
+	glUniform3fv(glGetUniformLocation(shaderProgram, "uColor"),    1, glm::value_ptr(obj.color));
+	glUniform1f (glGetUniformLocation(shaderProgram, "uAlpha"),    obj.alpha);
 	Renderer3DComponent::drawMain(
 		shaderProgram, VAO,
 		calculateModelMatrix(), Camera::cam->view, Camera::cam->proj,
@@ -116,5 +114,8 @@ void Renderer3D::initAllRenderers() {
 }
 
 void Renderer3D::drawAllRenderers() {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for ( Renderer3D* r : allRenderers ) r->draw();
+	glDisable(GL_BLEND);
 }

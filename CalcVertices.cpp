@@ -81,7 +81,7 @@ std::vector<vec3> CalcVertices::calcVertices_sphere(float radius, int verNum) {
 // Box の 6 面を visVertices に追加
 void CalcVertices::addVisVertices_box(Object* obj) {
 	std::vector<vec3> tempVertices = calcVertices_box(obj->size);
-	vec3 color = obj->color;
+	vec3 color = vec3(1);
 
 	// 上面 (Y+)
 	pushQuad(obj, tempVertices [0], tempVertices [1], tempVertices [2], tempVertices [3], color);
@@ -100,7 +100,7 @@ void CalcVertices::addVisVertices_box(Object* obj) {
 // 球の visVertices を追加
 void CalcVertices::addVisVertices_sphere(Object* obj, int verNum) {
 	std::vector<vec3> temp = calcVertices_sphere(obj->size.x * 0.5f, verNum);
-	vec3 color(obj->color);
+	vec3 color(1);
 
 	int phiNum = verNum - 1; //極点除いた頂点数は経線上で verNum-1 個
 	int thetaNum = 2 * verNum; //緯線上の頂点数は 2*verNum 個
