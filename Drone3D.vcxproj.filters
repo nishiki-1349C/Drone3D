@@ -173,9 +173,6 @@
     <ClInclude Include="Enemy_Mob.h">
       <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy_Tower.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -184,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="LineRenderer.h">
       <Filter>ヘッダー ファイル\LineRendererヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_Tower.h">
+      <Filter>ヘッダー ファイル\Enemyヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

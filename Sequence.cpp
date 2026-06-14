@@ -48,7 +48,7 @@ void Sequence::setInstance() {
 	EnemyMgr::init();
 	Camera::cam = new Camera();
 	StageObject::constructStage();
-	new Player(100, 0, 10);			//hp, score, attack
+	Player::player = new Player(100, 0, 100);			//hp, score, attack
 
 	LineRenderer::setInstance();
 	//Object* sphere = new Object(ShapeType::sphere, ObjectTag::none, ObjectType::environment, vec3(0.0f, 0.2f, 0.7f), vec3(5), vec3(0, 10, 10));
@@ -66,7 +66,9 @@ void Sequence::initRenderes() {
 				break;
 			case ShapeType::other:
 				cout << "ShapeType is Other";
-			default: break;
+				break;
+			default:
+				break;
 		}
 	}
 	// すべてのオブジェクトのGPUバッファを初期化
@@ -77,8 +79,8 @@ void Sequence::mainLoop() {}
 
 // dynamicオブジェクト同士の衝突判定
 void Sequence::checkAllCollision() {
-	auto& allDnmcs = Object::allDynamics,
-		allEnvs = Object::allEnvironments;
+	auto& allDnmcs = Object::allDynamics;
+	auto& allEnvs = Object::allEnvironments;
 
 	//dynamicオブジェクト同士の衝突判定
 	for ( size_t i = 0; i < allDnmcs.size(); ++i ) {

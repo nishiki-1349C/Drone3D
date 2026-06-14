@@ -1,9 +1,11 @@
 #include "GameMgr.h"
 #include "Blaster.h"
 #include "Camera.h"
+#include "EnemyMgr.h"
 #include "Sequence.h"
 #include "LineRenderer.h"
 
+using namespace std;
 
 void GameMgr::doPhase() {
 	switch ( state ) {
@@ -31,6 +33,7 @@ void GameMgr::doPhase() {
 
 				Blaster::shot();				// 弾の発射
 				Blaster::checkDeadBullets();	//弾の削除
+				EnemyMgr::checkDeadEnemy();		//死亡した敵の削除
 
 
 				Camera::cam->update();			//カメラ更新

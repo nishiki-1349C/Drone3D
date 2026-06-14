@@ -1,4 +1,4 @@
-﻿// Player.h
+// Player.h
 #pragma once
 class Player {
 public:
@@ -10,7 +10,7 @@ public:
 
 	int hp,
 		score,
-		attack,
-		initAttack  = 10;
+		attack;
+	static inline int initAttack = 10;
 private:
 };
