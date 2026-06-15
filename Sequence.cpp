@@ -65,7 +65,7 @@ void Sequence::initRenderes() {
 				CalcVertices::addVisVertices_sphere(obj, CalcVertices::verNum_Sphere);
 				break;
 			case ShapeType::other:
-				cout << "ShapeType is Other";
+				obj->addVisVertices_unique();
 				break;
 			default:
 				break;

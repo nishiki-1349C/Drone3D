@@ -1,4 +1,4 @@
-﻿#include "Object.h"
+#include "Object.h"
 #include "CalcVertices.h"
 #include "ObjectStatus.h"
 #include "Renderer3D.h"
@@ -12,7 +12,6 @@ using namespace glm;
 using namespace std;
 
 
-// �R���X�g���N�^
 Object::Object(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, glm::vec3 size, glm::vec3 pos)
 	: shapeType(shape)
 	, objTag(tag)
@@ -32,9 +31,8 @@ Object::Object(ShapeType shape, ObjectTag tag, ObjectType act, glm::vec3 color, 
 	renderer = new Renderer3D(this);
 }
 
-// �f�X�g���N�^
 Object::~Object() {
-	if ( renderer ) {              //  nullptr �`�F�b�N�F��O�������N����
+	if ( renderer ) {
 		delete renderer;
 		renderer = nullptr;
 	}
@@ -46,7 +44,7 @@ Object::~Object() {
 		default: break;
 	}
 }
-// �f�X�g���N�^�p�w���p�[
+
 void Object::eraseObjectFrom(std::vector<Object*>& objs, Object* obj) {
 
 	objs.erase(
