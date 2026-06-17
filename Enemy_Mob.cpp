@@ -11,9 +11,10 @@ Mob::Mob(glm::vec3 pos)
 
 void Mob::update() {
 	if ( !MainDrone::mainDrone ) return;
+	updateDroneDir(10);		// 1秒あたり10回 droneDir を更新
 	cout << state << endl;
 
-	vec3 target = MainDrone::mainDrone->currentPos - currentPos;
+	vec3 target = droneDir;
 
 	if ( hp <= 0 ) state = State::dead;
 
@@ -70,7 +71,7 @@ void Mob::update() {
 			break;
 		case State::dead:
 			deadTimer -= TimeMgr::getFixedDelta();
-			color = mix(baseColor, vec3(0), 1.0f - deadTimer / deadTime);
+			alpha = deadTimer / deadTime;
 			velocity = vec3(0);
 			if ( deadTimer <= 0 ) {
 				isDead = true;

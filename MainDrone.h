@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Object.h"
 #include "GLFWWrap.h"
 #include "TimeMgr.h"
@@ -13,19 +13,19 @@ public:
 
 	void update();
 	void onCollision(Object* other) override final;
+	//void addVisVertices_unique() override final;
 	static inline MainDrone* mainDrone = nullptr;
 
+	static inline glm::vec3 initPos = glm::vec3(0, 5, 0);
 	glm::vec3 lastPos,
 		droneVelocity = glm::vec3(0, 0, 0);
-
-	static inline glm::vec3 initPos = glm::vec3(0, 40, 0);
 
 private:
 	void move();
 	void operate();
 
 	static inline glm::vec3 forward = glm::vec3(0, 0, 1);
-	static inline glm::vec3 right   = glm::vec3(1, 0, 0);
+	static inline glm::vec3 right = glm::vec3(1, 0, 0);
 
 	bool isOverSpeed;
 	float acceleration = 30.0f;

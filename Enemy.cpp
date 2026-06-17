@@ -1,5 +1,7 @@
 #include "Enemy.h"
 #include "EnemyData.h"
+#include "MainDrone.h"
+#include "TimeMgr.h"
 using namespace std;
 using namespace glm;
 
@@ -16,6 +18,20 @@ Enemy::Enemy(EnemyType type, glm::vec3 pos)
 		pos
 	),
 	hp(getEnemyDataTable().at(type).hp),
-	attack(getEnemyDataTable().at(type).attack) {}
+	attack(getEnemyDataTable().at(type).attack) {
+	// 生成時は即座に初期化
+	if ( MainDrone::mainDrone ) droneDir = MainDrone::mainDrone->currentPos - currentPos;
+}
 
-//Enemy::~Enemy() {}
+//void Enemy::update() {}
+
+// 1秒あたり perSec 回の頻度で droneDir（自分→drone方向）を更新
+void Enemy::updateDroneDir(int perSec) {
+	if ( !MainDrone::mainDrone || perSec <= 0 ) return;
+
+	dirTimer += TimeMgr::getFixedDelta();
+	if ( dirTimer < 1.0f / perSec ) return;
+
+	dirTimer -= 1.0f / perSec;
+	droneDir = MainDrone::mainDrone->currentPos - currentPos;
+}

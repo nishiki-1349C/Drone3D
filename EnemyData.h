@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <unordered_map>
 #include <glm/glm.hpp>
 
@@ -26,3 +26,4 @@ inline const std::unordered_map<EnemyType, EnemyData>& getEnemyDataTable() {
 	};
 	return table;
 }
+

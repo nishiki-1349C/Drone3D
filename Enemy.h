@@ -12,7 +12,11 @@ public:
 	virtual void onCollision(Object* other) override {};
 
 	bool isDead = false;
+
 protected:
+	void updateDroneDir(int perSec);		// 1秒あたりperSec回 droneDir を更新
+	float dirTimer = 0.0f;					// 前回更新からの経過時間
+
 	int hp, attack;
-	float enemyTimer = 0;
+	glm::vec3 droneDir = glm::vec3(0.0f);	// 自分→droneの方向ベクトル
 };

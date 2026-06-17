@@ -1,12 +1,10 @@
 ﻿#include "EnemyMgr.h"
 #include "Enemy_Mob.h"
-#include "MainDrone.h"
 using namespace std;
 using namespace glm;
 
 
 void EnemyMgr::init() {
-	dronePos = &MainDrone::mainDrone->currentPos;
 }
 
 void EnemyMgr::spawnEnemy(EnemyType type, glm::vec3 pos) {
