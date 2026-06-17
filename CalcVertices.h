@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <glm/gtc/constants.hpp>
 #include <glm/glm.hpp>
 #include <vector>
@@ -15,12 +15,7 @@ public:
 	// （位置・法線・色）を追加する
 	static void addVisVertices_box(Object* obj);
 	static void addVisVertices_sphere(Object* obj, int verNum);
-	//static void addVisVertices_cylinder(Object* obj, int verNum);
-
 	static const int verNum_Sphere = 64;
-
-private:
-	static constexpr float PI = glm::pi<float>();
 
 	// 三角形 1 枚を法線付きで visVertices に追加する
 	static void pushTriangle(Object* obj,
@@ -35,4 +30,6 @@ private:
 		const glm::vec3& v2,
 		const glm::vec3& v3,
 		const glm::vec3& color);
+
+	static constexpr float PI = glm::pi<float>();
 };
