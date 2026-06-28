@@ -11,8 +11,8 @@ Mob::Mob(glm::vec3 pos)
 
 void Mob::update() {
 	if ( !MainDrone::mainDrone ) return;
-	updateDroneDir(10);		// 1秒あたり10回 droneDir を更新
-	cout << state << endl;
+	updateDroneDir();
+	//cout << state << endl;
 
 	vec3 target = droneDir;
 
