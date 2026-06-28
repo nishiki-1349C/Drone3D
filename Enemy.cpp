@@ -25,13 +25,18 @@ Enemy::Enemy(EnemyType type, glm::vec3 pos)
 
 //void Enemy::update() {}
 
-// 1秒あたり perSec 回の頻度で droneDir（自分→drone方向）を更新
-void Enemy::updateDroneDir(int perSec) {
-	if ( !MainDrone::mainDrone || perSec <= 0 ) return;
-
-	dirTimer += TimeMgr::getFixedDelta();
-	if ( dirTimer < 1.0f / perSec ) return;
-
-	dirTimer -= 1.0f / perSec;
+//（自分→drone方向）を更新
+void Enemy::updateDroneDir() {
+	if ( !MainDrone::mainDrone ) return;
 	droneDir = MainDrone::mainDrone->currentPos - currentPos;
+}
+
+// 1秒あたり perSec 回の頻度で （自分→drone方向）を更新
+void Enemy::updateDroneDirPerSec(int perSec) {
+	if ( !MainDrone::mainDrone ) return;
+	dirTimer += TimeMgr::getFixedDelta();
+	if ( dirTimer >= 1.0f / perSec ) {
+		dirTimer = 0.0f;
+		droneDir = MainDrone::mainDrone->currentPos - currentPos;
+	}
 }

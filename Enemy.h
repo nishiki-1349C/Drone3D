@@ -14,7 +14,8 @@ public:
 	bool isDead = false;
 
 protected:
-	void updateDroneDir(int perSec);		// 1秒あたりperSec回 droneDir を更新
+	void updateDroneDir();		// 1秒あたりperSec回 droneDir を更新
+	void updateDroneDirPerSec(int perSec);				// 1秒あたり1回 droneDir を更新
 	float dirTimer = 0.0f;					// 前回更新からの経過時間
 
 	int hp, attack;
