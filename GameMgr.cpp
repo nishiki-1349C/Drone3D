@@ -38,7 +38,6 @@ void GameMgr::doPhase() {
 
 				Camera::cam->update();			//カメラ更新
 			}
-			LineRenderer::drawAllLineRenderers();	//ライン描画
 			if ( isGameOver ) {				// ゲームオーバーに遷移
 				state = gameState::gameOver;
 				isGameOver = false;

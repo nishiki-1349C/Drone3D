@@ -23,25 +23,6 @@ LineRenderer::LineRenderer() {
 	glBindVertexArray(0);
 }
 
-LineRenderer::LineRenderer(bool st) {
-	allLineRenderers.push_back(this);
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	// GPUへ渡す頂点レイアウト: position(vec3) + color(vec3) = 6floats
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-
-	glBindVertexArray(0);
-
-	isDynamic = st;
-}
 
 LineRenderer::~LineRenderer() {
 	EraseLR();
@@ -70,14 +51,20 @@ void LineRenderer::addLine(const vec2& p1, const vec2& p2, const vec3& color, fl
 	lineVertices.push_back({vec3(p1, 0.0f), vec3(p2, 0.0f), color, width, false});
 }
 
-void LineRenderer::addLine3D(const vec3& p1, const vec3& p2, const vec3& color, float width) {
-	lineVertices.push_back({p1, p2, color, width, true});
+void LineRenderer::addLine3D(const vec3& p1, const vec3& p2, const vec3& color, float width, float alpha) {
+	lineVertices.push_back({p1, p2, color, alpha, width, true});
+}
+
+void LineRenderer::clearLines() {
+	lineVertices.clear();
 }
 
 void LineRenderer::draw() {
 	if ( lineVertices.empty() ) return;
 
 	if ( !depthTest ) glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glUseProgram(lineShader);
 
@@ -90,6 +77,7 @@ void LineRenderer::draw() {
 
 	for ( auto& lv : lineVertices ) {
 		glUniform1i(glGetUniformLocation(lineShader, "uIs3D"), lv.is3D ? 1 : 0);
+		glUniform1f(glGetUniformLocation(lineShader, "uAlpha"), lv.alpha);
 
 		float verts [] = {
 			lv.start.x, lv.start.y, lv.start.z, lv.color.r, lv.color.g, lv.color.b,
@@ -103,10 +91,10 @@ void LineRenderer::draw() {
 
 	glBindVertexArray(0);
 	glLineWidth(1.0f);
+	glDisable(GL_BLEND);
 
 	if ( !depthTest ) glEnable(GL_DEPTH_TEST);
 
-	if ( isDynamic ) lineVertices.clear();		// 動的な場合
 }
 
 
@@ -133,8 +121,9 @@ void LineRenderer::compileLineShader() {
 	const char* fsSrc = R"(
         #version 330 core
         in vec3 vColor;
+        uniform float uAlpha;
         out vec4 FragColor;
-        void main() { FragColor = vec4(vColor, 1.0); }
+        void main() { FragColor = vec4(vColor, uAlpha); }
     )";
 
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);

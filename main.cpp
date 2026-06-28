@@ -36,6 +36,8 @@ int main() {
 
 		Renderer3D::drawAllShadowOn(); // 影の描画
 
+		LineRenderer::drawAllLineRenderers();	// ライン描画（3Dオブジェクトの後）
+
 
 
 		// デス演出

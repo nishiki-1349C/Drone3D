@@ -8,14 +8,14 @@
 struct LineVertex {
 	glm::vec3 start, end;
 	glm::vec3 color;
+	float alpha = 1.0f;
 	float width;
 	bool is3D = false; // trueならdraw()時にworldToNDCで変換
 };
 
 class LineRenderer {
 public:
-	LineRenderer();			// 静的線描画
-	LineRenderer(bool st);	// 動的線描画
+	LineRenderer();
 	~LineRenderer();
 	void EraseLR();
 
@@ -23,7 +23,8 @@ public:
 	// 2D（NDC座標で直接登録）
 	void addLine(const glm::vec2& p1, const glm::vec2& p2, const glm::vec3& color, float width);
 	// 3D（ワールド座標で登録、draw()時に変換）
-	void addLine3D(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& color, float width);
+	void addLine3D(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& color, float width, float alpha = 1.0f);
+	void clearLines();
 	// lineVerticesを描画、三次元は毎フレーム変換
 	void draw();
 
@@ -32,15 +33,16 @@ public:
 
 	static void drawAllLineRenderers();	// 全ての描画
 
+	//セッター
+	void setDepthTest(bool enable) { this->depthTest = enable; }
 protected:
-GLuint VAO = 0, VBO = 0;
+	GLuint VAO = 0, VBO = 0;
 	std::vector<LineVertex> lineVertices;
 	bool depthTest = true; // falseにすると常に前面に描画
-	bool isDynamic = false;
 
 	static inline std::vector<LineRenderer*> allLineRenderers;
-	static inline GLuint   lineShader        = 0;
-	static inline Camera*  cam               = nullptr;
+	static inline GLuint   lineShader = 0;
+	static inline Camera* cam = nullptr;
 	static inline bool     shaderInitialized = false;
 	static void compileLineShader();
 };
