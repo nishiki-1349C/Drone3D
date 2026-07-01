@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 #include "Enemy.h"
 #include<vector>
 
 
 class EnemyMgr {
 public:
-	static void init();
+	static void setInstance(int stageNum);
 	static void spawnEnemy(EnemyType type, glm::vec3 pos);
 	static void checkDeadEnemy();
 	static void deleteAllEnemies();

@@ -11,6 +11,8 @@ using namespace glm;
 Tower::Tower(glm::vec3 pos)
 	: Enemy(EnemyType::tower, pos) {
 
+	shapeType = ShapeType::other;	// 独自形状。initRenderDataで addVisVertices_unique を使わせる
+
 	// 地面と設置位置の調整
 	float groundY = 0.0f;
 	for ( Object* obj : Object::allEnvironments ) {
@@ -21,10 +23,14 @@ Tower::Tower(glm::vec3 pos)
 	}
 	currentPos.y = groundY;
 
-	addVisVertices_unique();
-	renderer->init();
-
+	// 描画データの構築は EnemyMgr::spawnEnemy → initRenderData() で行う
 	laserRenderer = new LineRenderer();
+}
+
+Tower::~Tower() {
+	// VAO/VBO削除と allLineRenderers からの除去は ~LineRenderer が行う
+	delete laserRenderer;
+	laserRenderer = nullptr;
 }
 
 void Tower::addVisVertices_unique() {
@@ -73,6 +79,7 @@ void Tower::update() {
 	if ( length(droneDir) >= laserRange ) {
 		state = idle;
 		idleTimer = idleTime;
+		laserRenderer->clearLines();
 	}
 
 	// 状態遷移

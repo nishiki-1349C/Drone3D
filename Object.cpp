@@ -2,7 +2,7 @@
 #include "CalcVertices.h"
 #include "ObjectStatus.h"
 #include "Renderer3D.h"
-#include "VisTypes.h"   // Vertex�\����
+#include "VisTypes.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -43,6 +43,25 @@ Object::~Object() {
 		case ObjectType::environment: eraseObjectFrom(allEnvironments, this); break;
 		default: break;
 	}
+}
+
+// 描画データ（visVertices＋GPUバッファ）を構築する。生成時に一度呼ぶ
+void Object::initRenderData() {
+	if ( !visVertices.empty() ) return;	// 既に構築済みなら二重生成しない
+	switch ( shapeType ) {
+		case ShapeType::box:
+			CalcVertices::addVisVertices_box(this);
+			break;
+		case ShapeType::sphere:
+			CalcVertices::addVisVertices_sphere(this, CalcVertices::verNum_Sphere);
+			break;
+		case ShapeType::other:
+			addVisVertices_unique();
+			break;
+		default:
+			break;
+	}
+	if ( renderer ) renderer->init();
 }
 
 void Object::eraseObjectFrom(std::vector<Object*>& objs, Object* obj) {

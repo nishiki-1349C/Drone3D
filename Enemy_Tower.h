@@ -6,6 +6,7 @@
 class Tower : public Enemy {
 public:
 	Tower(glm::vec3 pos);
+	~Tower() override final;
 
 	void update() override final;
 	//void onCollision(Object* other) override final;
@@ -39,7 +40,7 @@ private:
 	float laserDamageTimer = 0.0f;
 
 	//idle
-	float idleTime = 1.0f,
+	float idleTime = 4.0f,
 		idleTimer = idleTime;
 
 	//standby

@@ -21,6 +21,7 @@ public:
 	virtual void update();								// 毎フレームの処理全般
 	virtual void calcColVertices();
 	virtual void addVisVertices_unique() {};	// それぞれ固有の描画用頂点
+	void initRenderData();						// 描画データ（頂点＋GPUバッファ）を構築する。生成時に一度呼ぶ
 
 	virtual void onCollision(Object* other);			//衝突時の処理 
 	virtual glm::vec3 resolveOverlap(Object* other) final;	//衝突時の重なり解消、補正軸を返す

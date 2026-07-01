@@ -1,20 +1,33 @@
-﻿#include "EnemyMgr.h"
+#include "EnemyMgr.h"
 #include "Enemy_Mob.h"
+#include "Enemy_Tower.h"
 using namespace std;
 using namespace glm;
 
 
-void EnemyMgr::init() {
+void EnemyMgr::setInstance(int stageNum) {
+	switch ( stageNum ) {
+		case 1:
+			spawnEnemy(EnemyType::mob, vec3(25, 0, 25));
+			spawnEnemy(EnemyType::mob, vec3(-20, 0, 25));
+			spawnEnemy(EnemyType::mob, vec3(25, 0, 20));
+			spawnEnemy(EnemyType::mob, vec3(-15, 0, 20));
+			spawnEnemy(EnemyType::tower, vec3(0, 0, 50));
+			break;
+	}
 }
 
 void EnemyMgr::spawnEnemy(EnemyType type, glm::vec3 pos) {
 	Enemy* enemy = nullptr;
 	switch ( type ) {
-		case EnemyType::mob: enemy = new Mob(pos);
-			break;
+		case EnemyType::mob:    enemy = new Mob(pos);    break;
+		case EnemyType::tower:  enemy = new Tower(pos);  break;
 		default: break;
 	}
-	allEnemies.push_back(enemy);
+	if ( enemy ) {
+		enemy->initRenderData();	// 生成時に描画データを構築（リセット時も可視化される）
+		allEnemies.push_back(enemy);
+	}
 }
 
 void EnemyMgr::checkDeadEnemy() {

@@ -31,7 +31,7 @@ void Sequence::init() {
 
 
 	setInstance();			// インスタンス生成
-	EnemyMgr::spawnEnemy(EnemyType::mob, vec3(0, 0, 50));
+
 
 	initRenderes();			// Objectの頂点情報を計算
 	GLFWWrap::init();		// ウィンドウの初期化
@@ -45,9 +45,9 @@ void Sequence::setInstance() {
 	// メインドローンの生成
 	/*shape tag act color size pos */
 	MainDrone::mainDrone = new MainDrone(ShapeType::box, ObjectTag::mainDrone, ObjectType::dynamic, vec3(0.5f, 0.7f, 1.0f), vec3(1.5f, 1.5f, 1.5f), MainDrone::initPos);
-	EnemyMgr::init();
-	Camera::cam = new Camera();
 	StageObject::constructStage();
+	EnemyMgr::setInstance(1);
+	Camera::cam = new Camera();
 	Player::player = new Player(100, 0, 100);			//hp, score, attack
 
 	LineRenderer::setInstance();
@@ -56,20 +56,9 @@ void Sequence::setInstance() {
 
 //
 void Sequence::initRenderes() {
+	// 各オブジェクトの描画データを構築（生成時に構築済みのものはスキップされる）
 	for ( Object* obj : Object::allObjects ) {
-		switch ( obj->getShapeType() ) {
-			case ShapeType::box:
-				CalcVertices::addVisVertices_box(obj);
-				break;
-			case ShapeType::sphere:
-				CalcVertices::addVisVertices_sphere(obj, CalcVertices::verNum_Sphere);
-				break;
-			case ShapeType::other:
-				obj->addVisVertices_unique();
-				break;
-			default:
-				break;
-		}
+		obj->initRenderData();
 	}
 	// すべてのオブジェクトのGPUバッファを初期化
 	Renderer3D::initAllRenderers();
