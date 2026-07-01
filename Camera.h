@@ -11,6 +11,7 @@ public:
 
 
 	void update();
+	void Reset();							//カメラを初期の向き・距離・位置へ戻す
 	static inline Camera* cam = nullptr;
 
 	// 行列とベクトル

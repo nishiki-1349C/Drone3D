@@ -63,6 +63,17 @@ void Camera::update() {
 	calcViewMatrix();
 }
 
+//カメラを初期の向き・距離・位置へ戻す（MainDroneを初期位置へ戻した後に呼ぶ）
+void Camera::Reset() {
+	yaw = 0.0f;
+	pitch = 0.0f;
+	camLength = camLengthMax;
+
+	moveCamPos();		//ドローン位置から camPos を再計算
+	updateAABBox();
+	calcViewMatrix();	//view 行列を更新
+}
+
 void Camera::updateAABBox() {
 	AABBmax = camPos + size * 0.5f;
 	AABBmin = camPos - size * 0.5f;

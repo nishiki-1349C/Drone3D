@@ -28,7 +28,7 @@ int main() {
 		GLFWWrap::clearWindowBuffer(glm::vec3(0.75f), 1.0f);
 
 		//--- 物理更新 (固定ステップ) ---
-		GameMgr::doPhase();
+		GameMgr::doPhysicalPhase();
 
 		//--- 描画セクション ---
 		// オブジェクト描画　全ての Renderer3D インスタンスをまとめて描画
@@ -38,7 +38,8 @@ int main() {
 
 		LineRenderer::drawAllLineRenderers();	// ライン描画（3Dオブジェクトの後）
 
-
+		//--- UI・オーバーレイ描画（全3D/ライン描画の後） ---
+		GameMgr::doVisualPhase();
 
 		// デス演出
 		//FadeInOut::fadeInOut(black, TimeMgr::getDeltaTime(), 2.0f);
