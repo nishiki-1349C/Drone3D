@@ -25,6 +25,12 @@ void FadeInOut::fadeInOut(const glm::vec3& color, float deltaTime, float duratio
 		if ( alpha >= 1.0f ) FadeIn();
 	}
 
+	// 画面全体の塗りつぶしは fill に委譲
+	fill(color, alpha);
+}
+
+// 画面全体を指定色・指定透明度で塗りつぶす
+void FadeInOut::fill(const glm::vec3& color, float alpha) {
 	if ( alpha <= 0.0f ) return;
 
 	// 描画設定（Renderer3Dのdrawと同様のパイプライン）

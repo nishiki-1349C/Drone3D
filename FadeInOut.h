@@ -16,6 +16,7 @@ public:
 	// 引数 MainDrone* を追加 static
 	static void init();
 	static void fadeInOut(const glm::vec3& color, float deltaTime, float duration);
+	static void fill(const glm::vec3& color, float alpha);	// 画面全体を指定色・指定透明度で塗りつぶす
 
 private:
 	// static 関数から触るため static に変更
